@@ -25,19 +25,15 @@
 * Phone
 * Notes
 
-## Resume
-* Resume ID
+## Document (Resume, Cover letter)
+* Document ID
 * Date Uploaded
-* Blob of cover letter
+* Blob of document
+* Mime Type (Internet media type)
 * Description
-* Job FK
-
-## Cover Letter
-* Cover letter ID
-* Date Uploaded
-* Blob of cover letter
-* Description
-* Job FK
+* Document type (resume, cover letter, other)
+	* Should be an enum, if available
+* Associated Job (FK)
 
 ## Correspondences
 * FK to Job
