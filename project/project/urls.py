@@ -1,10 +1,12 @@
 from django.conf.urls import patterns, include, url
+import jobtracker
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^', include('jobtracker.urls')), # map job tracker to root
     # Examples:
     # url(r'^$', 'project.views.home', name='home'),
     # url(r'^project/', include('project.foo.urls')),
