@@ -1,3 +1,44 @@
 from django.db import models
+from django.contrib.auth.models import User # Django's user model
 
-# Create your models here.
+class Job(models.Model):
+    job_title   = models.CharField(max_length=30)
+    post_url    = models.URLField() # default length 200. Long enough?
+    posting     = models.TextField()
+    applied_on  = models.DateField(verbose_name='date application sent')
+    city        = models.CharField(help_text='city where job is located', 
+                                   max_length=30)
+    state       = models.CharField(help_text='state where job is located', 
+                                   max_length=30)
+    notes       = models.TextField() # lots of notes?
+    user        = models.ForeignKey(User)
+
+
+class Document(models.Model):
+    ul_date     = models.DateTimeField('date uploaded')
+    the_doc     = models.FileField(upload_to='docs')
+    descr       = models.CharField(max_length=255)
+    DOC_TYPES_CHOICES = (
+        ('RS', 'Resume'),
+        ('CL', 'Cover Letter'),
+        ('FM', 'Form'),
+    )
+    user_name   = models.ForeignKey(User)
+    type        = models.CharField(max_length=2, choices=DOC_TYPES_CHOICES)
+    mime        = models.CharField(max_length=255)
+    job_id      = models.ForeignKey(Job)        
+
+
+class Contact(models.Model):
+    name        = models.CharField(max_length=80)
+    email       = models.EmailField()
+    phone       = models.CharField(max_length=20) # to account for foreign #s
+    notes       = models.CharField(max_length=200)
+    job         = models.ForeignKey(Job)
+
+
+class Correspondence(models.Model):
+    date        = models.DateTimeField()
+    message     = models.TextField()
+    job         = models.ForeignKey(Job)
+    contact     = models.ForeignKey(Contact)
