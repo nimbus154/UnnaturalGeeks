@@ -1,0 +1,6 @@
+<form method="post" action="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}" > 
+    <input type="submit" value="Delete" name="Delete" />
+    <input type="submit" value="Edit" name="Edit" />
+</form>
+<pre>{{ correspondence.message  }}</pre>
+<textarea class="edit">{{ correspondence.message }}</textarea>

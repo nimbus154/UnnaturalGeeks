@@ -1,0 +1,5 @@
+<ul class="correspondence">
+    {% for correspondence in job.correspondence_set %}
+        <li>{% include "jobtracker/correspondece_detail.html" %}</li>
+    {% endfor %}
+</ul>
