@@ -56,7 +56,7 @@ class Correspondence(models.Model):
     date        = models.DateTimeField()
     message     = models.TextField()
     job         = models.ForeignKey(Job)
-    contact     = models.ForeignKey(Contact, blank=True)
+    contact     = models.ForeignKey(Contact, blank=True, null=True)
     
     def __unicode__(self):
         return self.message

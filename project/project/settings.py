@@ -9,10 +9,14 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# if you're not running Prof Avery's VM, change this path so it points to the
+# correct directory:
+LOCAL_PATH='/home/cpsc473/django'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/cpsc473/django/UnnaturalGeeks/project/data.db',                      # Or path to database file if using sqlite3.
+        'NAME': '%s/UnnaturalGeeks/project/data.db' % LOCAL_PATH, # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -68,6 +72,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    '%s/UnnaturalGeeks/project/jobtracker/static' % LOCAL_PATH,
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -107,7 +112,7 @@ ROOT_URLCONF = 'project.urls'
 WSGI_APPLICATION = 'project.wsgi.application'
 
 TEMPLATE_DIRS = (
-    "/home/cpsc473/django/UnnaturalGeeks/project/templates"
+    '%s/UnnaturalGeeks/project/templates' % LOCAL_PATH
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
