@@ -1,0 +1,520 @@
+URLS.PY
+
+
+from django.conf.urls import patterns, include, url
+
+# Uncomment the next two lines to enable the admin:
+from django.contrib import admin
+admin.autodiscover()
+
+urlpatterns = patterns('',
+    # Examples:
+    # url(r'^$', 'myjobs.views.home', name='home'),
+    # url(r'^myjobs/', include('myjobs.foo.urls')),
+    url(r'^myjobs/document/index/$', 'jobsapp.views.index'),
+    url(r'^myjobs/document/$', 'jobsapp.views.listdocs'),
+    url(r'^myjobs/document/(?P<doc_id>\d+)/$', 'jobsapp.views.getdoc'),
+    url(r'^myjobs/document/del/', 'jobsapp.views.deldoc'),
+ 
+    # Uncomment the admin/doc line below to enable admin documentation:
+    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+
+    # Uncomment the next line to enable the admin:
+    url(r'^admin/', include(admin.site.urls)),
+)
+
+
+
+
+
+SETTINGS.PY
+
+
+# Django settings for myjobs project.
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+)
+
+MANAGERS = ADMINS
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '/home/cpsc473/virtualenvs/Django/prjs/myjobs/slqlite3db/jobsdb',   # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
+
+# Local time zone for this installation. Choices can be found here:
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# although not all choices may be available on all operating systems.
+# In a Windows environment this must be set to your system time zone.
+TIME_ZONE = 'America/Los_Angeles'
+
+# Language code for this installation. All choices can be found here:
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'en-us'
+
+SITE_ID = 1
+
+# If you set this to False, Django will make some optimizations so as not
+# to load the internationalization machinery.
+USE_I18N = True
+
+# If you set this to False, Django will not format dates, numbers and
+# calendars according to the current locale.
+USE_L10N = True
+
+# If you set this to False, Django will not use timezone-aware datetimes.
+USE_TZ = True
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/home/media/media.lawrence.com/media/"
+MEDIA_ROOT = '/home/cpsc473/virtualenvs/Django/prjs/myjobs/uploads/'
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+MEDIA_URL = 'http://myjobs/uploads/'
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = ''
+
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+STATIC_URL = '/static/'
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '-x7f$!g_!gu#6lj9gnc5v2qz5w#aba&amp;^hg*t)i&amp;oke-sb#_hc8'
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    # Uncomment the next line for simple clickjacking protection:
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+ROOT_URLCONF = 'myjobs.urls'
+
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = 'myjobs.wsgi.application'
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+   '/home/cpsc473/virtualenvs/Django/prjs/myjobs/myjobs/templates',
+)
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # Uncomment the next line to enable the admin:
+    'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
+    'jobsapp',
+    'myjobs',
+)
+
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error when DEBUG=False.
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+
+
+
+
+
+
+MODELS.PY
+
+from django.db import models
+
+# myjobs model 
+
+# available choices for document
+#DOC_TYPES_CHOICES = (
+#    ('RS', 'Resume'),
+#    ('CL', 'Cover Letter'),
+#    ('FM', 'Form'),
+#    )
+# replace belo    doc_type    = models.CharField(max_length=2, choices=DOC_TYPES_CHOICES)
+
+
+class User(models.Model):
+    user_key     = models.AutoField(primary_key=True)
+    
+class Job(models.Model):
+    job_key     = models.AutoField(primary_key=True)
+
+class Document(models.Model):
+    doc_key     = models.AutoField(primary_key=True)
+    doc_ul_date = models.DateTimeField('date uploaded',auto_now_add=True)
+    the_doc     = models.FileField(upload_to='docs')
+    doc_descr   = models.CharField(max_length=255)
+    user_name   = models.ForeignKey(User)
+    doc_type    = models.CharField(max_length=20)
+    doc_mime    = models.CharField(max_length=255)
+    job_ids     = models.ManyToManyField(Job, blank=True,null=True )  #, on_delete=models.SET_NULL
+
+    def __unicode__(self):
+        return self.doc_descr
+
+
+
+
+VIEWS.PY
+
+# Create your views here.
+ 
+from django.shortcuts import get_object_or_404, render_to_response
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
+from django.template import RequestContext
+from django.template import Context, loader
+
+from jobsmodels import Document
+from jobsmodels import User
+
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage
+from django.core.files import File
+
+# manages all files and forms for the jobs tracking system
+
+# Displays the available documents
+def listdocs(request):
+    if request.method == 'GET':
+        # retrieve and display all documents
+        all_docs = Document.objects.all().order_by('doc_ul_date')
+        return render_to_response('listdocums.html', {'all_docs': all_docs},
+                               context_instance=RequestContext(request))
+
+#   posting corresponds to uploading a document
+    elif request.method == 'POST':
+
+        # all fields must thave been entered         
+        try:
+            newdoc = Document()
+            newdoc.doc_descr = request.POST['doc_descr']
+            newdoc.doc_type  = request.POST['doc_type']
+            newdoc.the_doc   = request.FILES['the_doc']
+            newdoc.doc_mime  = request.FILES['the_doc'].content_type
+  
+        except :
+            # display the error
+            all_docs = Document.objects.all().order_by('doc_ul_date')
+            return render_to_response('listdocums.html', {
+                'all_docs': all_docs,
+                'error_message': "You did not enter all required data"},
+                 context_instance=RequestContext(request))
+
+        else:
+            curruser = User.objects.get(pk=1)
+            newdoc.user_name = curruser
+
+            newdoc.save()         
+
+            all_docs = Document.objects.all().order_by('doc_ul_date')
+            return HttpResponseRedirect('/myjobs/document/')
+            
+    else:       
+        raise Http404
+
+
+#    download (GET) or remove (DELETE) the file correcponding to
+#    the document id received 
+def getdoc(request, doc_id):
+    if request.method == 'GET':
+        
+#        this_doc = Document.objects.get(pk=1)
+        this_doc = get_object_or_404(Document, pk=doc_id)
+        
+        # send the file as a header attachment 
+        response = HttpResponse(this_doc.the_doc._get_file(), content_type= this_doc.doc_mime) #this_doc.the_doc.enctype)
+        response['Content-Disposition'] = 'attachment; filename=' + this_doc.the_doc.name
+        return response
+
+def deldoc(request):
+    if request.method == 'POST':
+         
+        try:
+        
+         this_doc = get_object_or_404(Document, pk=request.POST['doc_id'])
+         
+        except :
+            all_docs = Document.objects.all().order_by('doc_ul_date')
+            return render_to_response('listdocums.html', {
+                'all_docs': all_docs,
+                'error_message': "Document not found"},
+                 context_instance=RequestContext(request))
+        else:
+            this_doc.the_doc.delete() # remove file
+            this_doc.delete()         # remove document
+        
+            return HttpResponseRedirect('/myjobs/document/')
+
+
+
+
+LISTDOCUMS.HTML
+
+<!DOCTYPE html>
+<html lang="en-us" >
+<head>
+<title>Documents </title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/admin/css/ie.css" />--><!--[endif]-->
+
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/actions.js"></script>
+<script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+
+<body class="jobsapp-document change-form">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name">Available documents</h1>
+
+        </div>
+        
+        <div id="user-tools">
+            Welcome,
+            <strong>cpsc473</strong>.
+            
+                
+                
+                <a href="/myjobs/home">Home Page</a> /
+                <a href="/myjobs/logout/">Log out</a>
+            
+        </div>
+        
+        
+    </div>
+    <!-- END Header -->
+
+
+    
+    <div id="doc-list" >
+
+{% if all_docs %}
+    <table border="">
+        <tr>
+            <th>Remove</th>
+            <th>File Name</th>
+            <th>Doc type</th>
+            <th>Description</th>
+            <th>Upload Date</th>
+        </tr>
+    {% for doc in all_docs %}
+        <tr>
+            <td>
+                <form action="/myjobs/document/del/" method="post"  id="document_delete"> <div style='display:none'></div>
+                      {% csrf_token %} 
+                      <button name="doc_id" type="submit" value="{{ doc.doc_key }}">Delete</button>
+                </form>
+            </td>
+            <td>
+                <a href="/myjobs/document/{{ doc.doc_key }}/">{{ doc.the_doc.name }}</a>
+            </td>
+            <td>
+                {{ doc.doc_type}} 
+            </td>
+            <td>
+                {{ doc.doc_descr }}
+            </td>
+            <td>
+                {{doc.doc_ul_date}} 
+            </td>
+        </tr>
+
+    {% endfor %}
+    </table> 
+{% else %}
+    <p>No documents available.</p>
+{% endif %}
+
+    </div>    
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Add document</h1>
+        <div id="content-main">
+
+
+
+<form enctype="multipart/form-data" action="/myjobs/document/" method="post" 
+           id="document_form"><div style='display:none'></div>
+{% csrf_token %}           
+<div>
+
+
+
+  <fieldset class="module aligned ">
+    
+        <div class="form-row field-the_doc">
+            
+            
+                <div>
+                    
+                        <label for="id_the_doc" class="required">The doc:</label>
+                        
+                            <input type="file" name="the_doc" id="id_the_doc" />
+                        
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-doc_descr">
+            
+                <div>
+                     
+                        <label for="id_doc_descr" class="required">Doc descr:</label>
+                        
+                            <input id="id_doc_descr" type="text" class="vTextField" name="doc_descr" maxlength="255" />
+                    
+                </div>
+            
+        </div>
+    
+    
+        <div class="form-row field-doc_type">
+            
+                <div>
+                    
+                        <label for="id_doc_type" class="required">Doc type:</label>
+                        
+                            <select name="doc_type" id="id_doc_type">
+                                    <option value="Resume"selected>Resume</option>
+                                    <option value="Cover Letter">Cover Letter</option>
+                                    <option value="Form">Form</option>
+                            </select>
+                    
+                </div>
+            
+        </div>
+    
+    
+  </fieldset>
+
+
+<div class="submit-row">
+<input type="submit" value="Upload" class="default" name="_save" />
+
+</div>
+
+
+
+<script type="text/javascript">
+(function($) {
+    var field;
+
+
+})(django.jQuery);
+</script>
+
+
+</div>
+</form></div>
+
+        
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"
+        style='color:red'>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    </div>
+</div>
+<!-- END Container -->
+
+</body>
+</html>
+
