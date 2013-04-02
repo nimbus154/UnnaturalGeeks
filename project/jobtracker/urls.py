@@ -9,7 +9,10 @@ import jobtracker.document_views
 import jobtracker.user_views
 
 urlpatterns = patterns('jobtracker',
-    url(r'^job$', 'job_views.list'),
+    url(r'^job$', 
+        ListView.as_view(
+            model=Job,
+            template_name='jobtracker/job_list.html')),
     url(r'^job/(?P<pk>\d+)$',
         DetailView.as_view(
             model=Job,
