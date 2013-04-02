@@ -9,30 +9,19 @@
                     <th>Company</th>
                     <th>City</th>
                     <th>State</th>
-                    <th>Status</th>
-                    <th>Date Added</th>
-                    <th>Last Updated</th>
+                    <th>Applied</th>
                 </tr>
             </thead>
             <tbody>
+                {% for job in object_list %}
                 <tr>
-                    <td>Web Developer</td>
-                    <td>Evernote</td>
-                    <td>Mountain View</td>
-                    <td>CA</td>
-                    <td>Applied</td>
-                    <td>3/18/2013</td>
-                    <td>3/24/2013</td>
+                    <td><a href="/job/{{job.id}}">{{ job.job_title }}</a></td>
+                    <td><a href="/job/{{job.id}}">{{ job.company }}</a></td>
+                    <td><a href="/job/{{job.id}}">{{ job.company }}</a></td>
+                    <td><a href="/job/{{job.id}}">{{ job.state }}</a></td>
+                    <td><a href="/job/{{job.id}}">{{ job.applied_on }}</a></td>
                 </tr>
-                <tr>
-                    <td>Software Engineer</td>
-                    <td>Google</td>
-                    <td>Mountain View</td>
-                    <td>CA</td>
-                    <td>Applied</td>
-                    <td>2/8/2013</td>
-                    <td>2/15/2013</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     {% endblock %}
