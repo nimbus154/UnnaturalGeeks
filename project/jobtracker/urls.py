@@ -1,8 +1,7 @@
 from django.conf.urls import patterns, include, url
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from jobtracker.models import Job
 import jobtracker.views
-import jobtracker.job_views
 import jobtracker.contact_views
 import jobtracker.correspondence_views
 import jobtracker.document_views
@@ -27,5 +26,5 @@ urlpatterns = patterns('jobtracker',
     url(r'^document/(?P<doc_id>\d+)$', 'document_views.detail'),
     url(r'^user$', 'user_views.register'),
     url(r'^session$', 'user_views.createSession'),
-    url(r'^$', 'views.index'),
+    url(r'^$', TemplateView.as_view(template_name='jobtracker/marketing.html')),
 )
