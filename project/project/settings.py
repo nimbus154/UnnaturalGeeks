@@ -84,7 +84,10 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'less.finders.LessFinder',
 )
+
+LESS_ROOT='%s/UnnaturalGeeks/project/jobtracker/static/styles' % LOCAL_PATH
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'a3cv9k84biath!-(azh7m0pjl&amp;@k^fi0c-n-q#bdmh$bm0+(1+'
@@ -129,6 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'less',
     'jobtracker',
 )
 
