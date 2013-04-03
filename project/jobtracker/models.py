@@ -1,3 +1,4 @@
+from django.forms import ModelForm
 from django.db import models
 from django.contrib.auth.models import User # Django's user model
 
@@ -60,3 +61,7 @@ class Correspondence(models.Model):
     
     def __unicode__(self):
         return self.message
+
+class CorrespondenceForm(ModelForm):
+    class Meta:
+        model   = Correspondence
