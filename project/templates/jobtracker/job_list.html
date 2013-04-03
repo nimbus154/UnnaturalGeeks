@@ -2,7 +2,7 @@
     {% block body %}
         <h1>Jobs You're Tracking</h1>
         <span>Add new</span>
-        <table class="jobs table table-striped table-hover">
+        <table class="jobs">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for job in object_list %}
+                {% for job in jobs %}
                 <tr>
                     <td><a href="/job/{{job.id}}">{{ job.job_title }}</a></td>
                     <td><a href="/job/{{job.id}}">{{ job.company }}</a></td>

@@ -1,7 +1,7 @@
 <form method="post" action="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}" > 
     {% csrf_token %}
-    <input type="submit" value="Delete" name="Delete" />
-    <input type="submit" value="Edit" name="Edit" />
+    <button name="delete"><i class="icon-remove"></i></button>
+    <button name="update"><i class="icon-pencil"></i></button>
 </form>
 <pre>{{ correspondence.message  }}</pre>
 <textarea class="edit">{{ correspondence.message }}</textarea>
