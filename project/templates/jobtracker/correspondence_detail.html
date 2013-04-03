@@ -1,7 +1,9 @@
-<form method="post" action="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}" > 
+<form class="options" method="post" action="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}" > 
     {% csrf_token %}
     <button name="delete"><i class="icon-remove"></i></button>
     <button name="update"><i class="icon-pencil"></i></button>
 </form>
-<pre>{{ correspondence.message  }}</pre>
-<textarea class="edit">{{ correspondence.message }}</textarea>
+<pre>
+<strong>{{ correspondence.date  }}</strong>
+{{ correspondence.message  }}
+</pre>
