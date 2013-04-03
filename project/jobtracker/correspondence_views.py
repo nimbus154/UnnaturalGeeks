@@ -4,7 +4,14 @@ def list(request, job_id):
     return HttpResponse('correspondence list for job %s' % job_id)
 
 def detail(request, job_id, correspondence_id):
-    return HttpResponse('details for correspondence %s' % correspondence_id) 
+    if(request.method == "POST"): 
+        if('delete' in request.POST):
+            return HttpResponse('DELETE details for correspondence %s' % correspondence_id) 
+        elif('update' in request.POST):
+            return HttpResponse('Update details for correspondence %s' % correspondence_id) 
+    else:
+        return HttpResponse('details for correspondence %s' % correspondence_id) 
+
 
 '''
 Need to support the following operations:
