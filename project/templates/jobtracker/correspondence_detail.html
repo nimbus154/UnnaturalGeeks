@@ -1,8 +1,11 @@
-<form class="options" method="post" action="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}" > 
-    {% csrf_token %}
-    <button name="delete"><i class="icon-remove"></i></button>
-    <button name="update"><i class="icon-pencil"></i></button>
-</form>
+<div class="options">
+    <form class="delete" method="post" action="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}" > 
+        {% csrf_token %}
+        <button title="Delete" name="delete"><i class="icon-remove"></i></button>
+        <input type="hidden" name="_method" value="delete" />
+    </form>
+    <a href="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}" title="Edit"><i class="icon-pencil"></i></a>
+</div>
 <pre>
 <strong>{{ correspondence.date  }}</strong>
 {{ correspondence.message  }}

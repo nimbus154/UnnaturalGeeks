@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 
-def list(request, job_id):
+def main(request, job_id):
     return HttpResponse('correspondence list for job %s' % job_id)
 
 def detail(request, job_id, correspondence_id):

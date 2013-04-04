@@ -65,3 +65,4 @@ class Correspondence(models.Model):
 class CorrespondenceForm(ModelForm):
     class Meta:
         model   = Correspondence
+        fields = ('contact', 'date', 'message')

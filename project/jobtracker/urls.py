@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import ListView, TemplateView
 from jobtracker.models import Job
-import jobtracker.views
+from jobtracker.views import JobDetailView
 import jobtracker.contact_views
 import jobtracker.correspondence_views
 import jobtracker.document_views
@@ -11,11 +11,11 @@ urlpatterns = patterns('jobtracker',
     url(r'^job$', ListView.as_view(
         model=Job,
         context_object_name='jobs')),
-    url(r'^job/(?P<pk>\d+)$', DetailView.as_view(model=Job)),
+    url(r'^job/(?P<pk>\d+)$', JobDetailView.as_view()),
     url(r'^job/(?P<job_id>\d+)/contact$', 'contact_views.list'),
     url(r'^job/(?P<job_id>\d+)/contact/(?P<contact_id>\d+)$', 
         'contact_views.detail'),
-    url(r'^job/(?P<job_id>\d+)/correspondence$', 'correspondence_views.list'),
+    url(r'^job/(?P<job_id>\d+)/correspondence$', 'views.correspondence'),
     url(r'^job/(?P<job_id>\d+)/correspondence/(?P<correspondence_id>\d+)$',
         'correspondence_views.detail'),
     url(r'^document$', 'document_views.list'),
