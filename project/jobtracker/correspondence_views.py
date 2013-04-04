@@ -1,40 +1,44 @@
 from django.http import HttpResponse
+from jobtracker.models import Job, CorrespondenceForm, Correspondence
+from django.shortcuts import redirect, render, get_object_or_404
 
-def main(request, job_id):
-    return HttpResponse('correspondence list for job %s' % job_id)
+def create(request, job_id):
+# Manage correspondence creation
+    if(request.method == 'POST'):
+        form = CorrespondenceForm(request.POST)
+        if(form.is_valid()):
+            correspondence = form.save(commit=False)
+            correspondence.job_id = job_id
+            correspondence.save()
+            return redirect('/job/%s' % job_id)
+        else:
+            return render(request, 
+                          'jobtracker/job_detail.html', 
+                          {
+                              'correspondence_form': form,
+                              'job': Job.objects.get(pk=job_id),
+                          })
 
-def detail(request, job_id, correspondence_id):
-    if(request.method == "POST"): 
-        if('delete' in request.POST):
-            return HttpResponse('DELETE details for correspondence %s' % correspondence_id) 
-        elif('update' in request.POST):
-            return HttpResponse('Update details for correspondence %s' % correspondence_id) 
+def single(request, job_id, correspondence_id):
+    c = get_object_or_404(Correspondence, pk=correspondence_id)
+
+    if(request.method == 'POST' and '_method' in request.POST): 
+        requestMethod = request.POST.get('_method', '')
+
+        if(requestMethod == 'delete'):
+            return redirect('/job/%s' % job_id)
+
+        elif(requestMethod == 'put'):
+            form = CorrespondenceForm(request.POST, instance=c)
+            if(form.is_valid()):
+                form.save()
+                return redirect('/job/%s' % job_id)
     else:
-        return HttpResponse('details for correspondence %s' % correspondence_id) 
+        form = CorrespondenceForm(instance=c)
 
-
-'''
-Need to support the following operations:
-    /job/{id}/correspondence
-        GET 
-            list all correspondences
-        POST
-            create a new correspondence
-
-    /job/{id}/correspondence/{id}
-        PUT
-            update a correspondence
-        DELETE
-            delete a correspondence
-
-    All of this will be included in the job details template.
-    
-    Template:
-        Give it a job. 
-            for correspondence in job.correspondence_set
-                render single correspondence
-
-        Single template:
-            x/pencil in top corner for deleting/updating
-            display content
-'''
+    return render(request, 
+                    'jobtracker/correspondence_edit.html', 
+                    {
+                        'correspondence_form': form,
+                        'correspondence': c,
+                    })
