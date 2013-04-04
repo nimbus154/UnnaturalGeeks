@@ -26,6 +26,7 @@ def single(request, job_id, correspondence_id):
         requestMethod = request.POST.get('_method', '')
 
         if(requestMethod == 'delete'):
+            c.delete()
             return redirect('/job/%s' % job_id)
 
         elif(requestMethod == 'put'):
