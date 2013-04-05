@@ -42,8 +42,8 @@
             
                 
                 
-                <a href="/myjobs/home">Home Page</a> /
-                <a href="/myjobs/logout/">Log out</a>
+                <a href="/home">Home Page</a> /
+                <a href="/logout/">Log out</a>
             
         </div>
         
@@ -67,13 +67,13 @@
     {% for doc in all_docs %}
         <tr>
             <td>
-                <form action="/myjobs/document/del/" method="post"  id="document_delete"> <div style='display:none'></div>
+                <form action="/document/del/" method="post"  id="document_delete"> <div style='display:none'></div>
                       {% csrf_token %} 
                       <button name="doc_id" type="submit" value="{{ doc.doc_key }}">Delete</button>
                 </form>
             </td>
             <td>
-                <a href="/myjobs/document/{{ doc.doc_key }}/">{{ doc.the_doc.name }}</a>
+                <a href="/document/{{ doc.doc_key }}/">{{ doc.the_doc.name }}</a>
             </td>
             <td>
                 {{ doc.doc_type}} 
@@ -102,7 +102,7 @@
 
 
 
-<form enctype="multipart/form-data" action="/myjobs/document/" method="post" 
+<form enctype="multipart/form-data" action="/document/" method="post" 
            id="document_form"><div style='display:none'></div>
 {% csrf_token %}           
 <div>
