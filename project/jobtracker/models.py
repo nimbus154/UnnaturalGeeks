@@ -24,6 +24,19 @@ class Job(models.Model):
 
 
 class Document(models.Model):
+    doc_key     = models.AutoField(primary_key=True)
+    doc_ul_date = models.DateTimeField('date uploaded',auto_now_add=True)
+    the_doc     = models.FileField(upload_to='docs')
+    doc_descr   = models.CharField(max_length=255)
+    user_name   = models.ForeignKey(User)
+    doc_type    = models.CharField(max_length=20)
+    doc_mime    = models.CharField(max_length=255)
+    job_ids     = models.ManyToManyField(Job, blank=True,null=True )  #, on_delete=models.SET_NULL
+
+    def __unicode__(self):
+        return self.doc_descr
+    '''
+class Document(models.Model):
     ul_date     = models.DateTimeField('date uploaded')
     the_doc     = models.FileField(upload_to='docs')
     descr       = models.CharField(max_length=255)
@@ -39,6 +52,7 @@ class Document(models.Model):
 
     def __unicode__(self):
         return '%s: %s' % (type, descr)
+    '''
 
 class Contact(models.Model):
     name        = models.CharField(max_length=80)

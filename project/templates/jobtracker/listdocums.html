@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us" >
+<head>
+<title>Documents </title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/admin/css/ie.css" />--><!--[endif]-->
+
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/actions.js"></script>
+<script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+
+<body class="jobsapp-document change-form">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name">Available documents</h1>
+
+        </div>
+        
+        <div id="user-tools">
+            Welcome,
+            <strong>cpsc473</strong>.
+            
+                
+                
+                <a href="/myjobs/home">Home Page</a> /
+                <a href="/myjobs/logout/">Log out</a>
+            
+        </div>
+        
+        
+    </div>
+    <!-- END Header -->
+
+
+    
+    <div id="doc-list" >
+
+{% if all_docs %}
+    <table border="">
+        <tr>
+            <th>Remove</th>
+            <th>File Name</th>
+            <th>Doc type</th>
+            <th>Description</th>
+            <th>Upload Date</th>
+        </tr>
+    {% for doc in all_docs %}
+        <tr>
+            <td>
+                <form action="/myjobs/document/del/" method="post"  id="document_delete"> <div style='display:none'></div>
+                      {% csrf_token %} 
+                      <button name="doc_id" type="submit" value="{{ doc.doc_key }}">Delete</button>
+                </form>
+            </td>
+            <td>
+                <a href="/myjobs/document/{{ doc.doc_key }}/">{{ doc.the_doc.name }}</a>
+            </td>
+            <td>
+                {{ doc.doc_type}} 
+            </td>
+            <td>
+                {{ doc.doc_descr }}
+            </td>
+            <td>
+                {{doc.doc_ul_date}} 
+            </td>
+        </tr>
+
+    {% endfor %}
+    </table> 
+{% else %}
+    <p>No documents available.</p>
+{% endif %}
+
+    </div>    
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Add document</h1>
+        <div id="content-main">
+
+
+
+<form enctype="multipart/form-data" action="/myjobs/document/" method="post" 
+           id="document_form"><div style='display:none'></div>
+{% csrf_token %}           
+<div>
+
+
+
+  <fieldset class="module aligned ">
+    
+        <div class="form-row field-the_doc">
+            
+            
+                <div>
+                    
+                        <label for="id_the_doc" class="required">The doc:</label>
+                        
+                            <input type="file" name="the_doc" id="id_the_doc" />
+                        
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-doc_descr">
+            
+                <div>
+                     
+                        <label for="id_doc_descr" class="required">Doc descr:</label>
+                        
+                            <input id="id_doc_descr" type="text" class="vTextField" name="doc_descr" maxlength="255" />
+                    
+                </div>
+            
+        </div>
+    
+    
+        <div class="form-row field-doc_type">
+            
+                <div>
+                    
+                        <label for="id_doc_type" class="required">Doc type:</label>
+                        
+                            <select name="doc_type" id="id_doc_type">
+                                    <option value="Resume"selected>Resume</option>
+                                    <option value="Cover Letter">Cover Letter</option>
+                                    <option value="Form">Form</option>
+                            </select>
+                    
+                </div>
+            
+        </div>
+    
+    
+  </fieldset>
+
+
+<div class="submit-row">
+<input type="submit" value="Upload" class="default" name="_save" />
+
+</div>
+
+
+
+<script type="text/javascript">
+(function($) {
+    var field;
+
+
+})(django.jQuery);
+</script>
+
+
+</div>
+</form></div>
+
+        
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"
+        style='color:red'>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    </div>
+</div>
+<!-- END Container -->
+
+</body>
+</html>
+
