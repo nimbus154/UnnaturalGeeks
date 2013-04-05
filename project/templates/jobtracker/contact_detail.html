@@ -1,11 +1,13 @@
 <div class="options">
     <form method="post" action="/job/{{ contact.job_id }}/contact/{{ contact.id }}" > 
         {% csrf_token %}
-        <input type="text" class="vTextField" value="Name" name="Name" />
-        <input type="text" class="vTextField" value="Email" name="Email" />
-        <input type="text" class="vTextField" value="Phone" name="Phone" maxlength="20">
+        <button title="Delete" name="delete"><i class="icon-remove"></i></button>
+        <input type="hidden" name="_method" value="delete" />
     </form>
+    <a href="/job/{{ contact.job_id }}/contact/{{ contact.id }}" title="Edit"><i class="icon-pencil"></i></a>
+    <p>{{ contact.name }}</p>
+    <p>{{ contact.email }}</p>
+    <p>{{ contact.phone }}</p>
     <pre>{{ contact.notes  }}</pre>
-    <textarea class="edit">{{ contact.notes }}</textarea>
 </div>
 

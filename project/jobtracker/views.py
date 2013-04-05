@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from jobtracker.models import Job, CorrespondenceForm
+from jobtracker.models import Job, CorrespondenceForm, ContactForm
 from django.views.generic import DetailView
 
 class JobDetailView(DetailView):
@@ -9,6 +9,7 @@ class JobDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(JobDetailView, self).get_context_data(**kwargs)
         context['correspondence_form'] = CorrespondenceForm()
+        context['contact_form'] = ContactForm()
         return context
 
 

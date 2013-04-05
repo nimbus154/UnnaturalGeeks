@@ -1,6 +1,9 @@
 {% extends 'jobtracker/base.html' %}
     {% block body %}
         <h1>Job #{{ job.id}}</h1>
+        <section class="contacts">
+            {% include "jobtracker/contact_list.html" %}
+        </section>
         <section class="correspondences">
             {% include "jobtracker/correspondence_list.html" %}
         </section>

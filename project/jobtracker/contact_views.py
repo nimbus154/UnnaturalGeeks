@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from jobtracker.models import Job, Contact, ContactForm
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404, render_to_response
 
 def create(request, job_id):
 # manage contact creation
@@ -19,13 +19,27 @@ def create(request, job_id):
                               'job': Job.objects.get(pk=job_id),
                           })
 
-def list(request, job_id):
+def single(request, job_id, contact_id):
+    c = get_object_or_404(Contact, pk=contact_id)
+
+    if(request.method == 'POST' and '_method' in request.POST): 
+        requestMethod = request.POST.get('_method', '')
+
+        if(requestMethod == 'delete'):
+            c.delete()
+            return redirect('/job/%s' % job_id)
+
+        elif(requestMethod == 'put'):
+            form = ContactForm(request.POST, instance=c)
+            if(form.is_valid()):
+                form.save()
+                return redirect('/job/%s' % job_id)
+    else:
+        form = ContactForm(instance=c)
+
     return render(request, 
-                  'jobtracker/contact_list.html',
-                  {
-                       'job': job_id,
-                  })
-
-def detail(request, job_id, contact_id):
-    return HttpResponse('details for contact %s' % contact_id)
-
+                    'jobtracker/contact_edit.html', 
+                    {
+                        'contact_form': form,
+                        'contact': c,
+                    })

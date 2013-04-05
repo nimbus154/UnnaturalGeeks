@@ -2,6 +2,7 @@
 <h1>Contacts</h1>
 <form class="add" method="post" action="/job/{{ job.id }}/contact" > 
     {% csrf_token %}
+        {{ contact_form.as_p }}
     <button title="Add" name="add"><i class="icon-plus"></i></button>
 </form>
 <ul class="contact-list">
