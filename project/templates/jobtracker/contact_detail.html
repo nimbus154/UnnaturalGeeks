@@ -1,0 +1,11 @@
+<div class="options">
+    <form method="post" action="/job/{{ contact.job_id }}/contact/{{ contact.id }}" > 
+        {% csrf_token %}
+        <input type="text" class="vTextField" value="Name" name="Name" />
+        <input type="text" class="vTextField" value="Email" name="Email" />
+        <input type="text" class="vTextField" value="Phone" name="Phone" maxlength="20">
+    </form>
+    <pre>{{ contact.notes  }}</pre>
+    <textarea class="edit">{{ contact.notes }}</textarea>
+</div>
+

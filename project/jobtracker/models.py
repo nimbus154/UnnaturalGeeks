@@ -52,6 +52,11 @@ class Contact(models.Model):
     def __unicode__(self):
         return self.name
 
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = ('name', 'email', 'phone', 'notes') 
+
 
 class Correspondence(models.Model):
     date        = models.DateTimeField()
