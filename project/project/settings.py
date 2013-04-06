@@ -52,7 +52,7 @@ USE_L10N = True
 USE_TZ = True
 
 # Login URL page
-LOGIN_URL= '/jobtracker/login/'
+LOGIN_URL= '/login/'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"

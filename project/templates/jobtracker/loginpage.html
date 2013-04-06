@@ -37,7 +37,7 @@
  
 
 <div id="content-main">
-<form action="/jobtracker/login/" method="post" id="login-form"><div style='display:none'></div>
+<form action="/login/" method="post" id="login-form"><div style='display:none'></div>
   {% csrf_token %} 
   <div class="form-row">
     
@@ -47,7 +47,7 @@
     
     <label for="id_password" class="required">Password:</label> <input type="password" name="password" id="id_password" />
     <input type="hidden" name="this_is_the_login_form" value="1" />
-    <input type="hidden" name="next" value="/jobtracker/document/" />
+    <input type="hidden" name="next" value="/document/" />
 
   </div>
   
@@ -57,7 +57,7 @@
   </div>
 </form>
 
-  <div>   <a href="/jobtracker/register">(Register)</a> </div>
+  <div>   <a href="/register">(Register)</a> </div>
 
 
 <script type="text/javascript">

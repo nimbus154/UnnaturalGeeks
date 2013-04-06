@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from jobtracker.models import Job, CorrespondenceForm, ContactForm
 from django.views.generic import DetailView
 
@@ -49,12 +49,12 @@ from django.core.exceptions import ValidationError
 # manages all files and forms for the jobs tracking system
 
 # Displays the available documents
-@login_required(login_url='/jobtracker/login/')
+@login_required
 def listdocs(request):
     if request.method == 'GET':
         # retrieve and display all documents
         all_docs = Document.objects.filter(user_name=request.user).order_by('doc_ul_date')
-        return render_to_response('listdocums.html', {'all_docs': all_docs,
+        return render_to_response('jobtracker/listdocums.html', {'all_docs': all_docs,
                                                       'username': request.user.username},
                                context_instance=RequestContext(request))
 
@@ -72,7 +72,7 @@ def listdocs(request):
         except :
             # display the error
             all_docs = Document.objects.filter(user_name=request.user).order_by('doc_ul_date')
-            return render_to_response('listdocums.html', {
+            return render_to_response('jobtracker/listdocums.html', {
                 'all_docs': all_docs, 'username': request.user.username,
                 'error_message': "You did not enter all required data"},
                  context_instance=RequestContext(request))
@@ -84,7 +84,7 @@ def listdocs(request):
             newdoc.save()         
 
             all_docs = Document.objects.filter(user_name=request.user).order_by('doc_ul_date')
-            return HttpResponseRedirect('/jobtracker/document/')
+            return HttpResponseRedirect('/document/')
             
     else:       
         raise Http404
@@ -92,7 +92,7 @@ def listdocs(request):
 
 #    download (GET) or remove (DELETE) the file correcponding to
 #    the document id received 
-@login_required(login_url='/jobtracker/login/')
+@login_required
 def getdoc(request, doc_id):
     if request.method == 'GET':
         
@@ -105,7 +105,7 @@ def getdoc(request, doc_id):
         response['Content-Disposition'] = 'attachment; filename=' + this_doc.the_doc.name
         return response
 
-@login_required(login_url='/jobtracker/login/')
+@login_required
 def deldoc(request):
     if request.method == 'POST':
          
@@ -115,7 +115,7 @@ def deldoc(request):
          
         except :
             all_docs = Document.objects.filter(user_name=request.user).order_by('doc_ul_date')
-            return render_to_response('listdocums.html', {
+            return render_to_response('jobtracker/listdocums.html', {
                 'all_docs': all_docs, 'username': request.user.username,
                 'error_message': "Document not found"},
                  context_instance=RequestContext(request))
@@ -123,14 +123,14 @@ def deldoc(request):
             this_doc.the_doc.delete() # remove file
             this_doc.delete()         # remove document
         
-            return HttpResponseRedirect('/jobtracker/document/')
+            return HttpResponseRedirect('/document/')
 
 
 
 def loginfunc(request):
     if request.method == 'GET':
         # display the login form    
-        return render_to_response('loginpage.html', 
+        return render_to_response('jobtracker/loginpage.html', 
             {'error_message': "login or register your account"},
                                context_instance=RequestContext(request))
 
@@ -140,23 +140,23 @@ def loginfunc(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect('/jobtracker/document/')
+            return HttpResponseRedirect('/document/')
         else:
             # Return an 'invalid login' error message.
-            return render_to_response('loginpage.html', {
+            return render_to_response('jobtracker/loginpage.html', {
                 'error_message': "Invalid account "},
                  context_instance=RequestContext(request))
 
 
 def logoutfunc(request):
     logout(request)
-    return HttpResponseRedirect('/jobtracker/login/')
+    return HttpResponseRedirect('/login/')
 
 
 def registerfunc(request):
     if request.method == 'GET':
         # display the login form    
-        return render_to_response('registerpage.html', 
+        return render_to_response('jobtracker/registerpage.html', 
             {'error_message': "enter an account and password to register"},
                                context_instance=RequestContext(request))
 
@@ -165,7 +165,7 @@ def registerfunc(request):
 #            useremail = request.POST['useremail']
 #            if is_valid_email(useremail) == False:
                 # display the error
-#                return render_to_response('registerpage.html', 
+#                return render_to_response('jobtracker/registerpage.html', 
 #                    {'error_message': "invalid email"},
 #                               context_instance=RequestContext(request))
 #        except :
@@ -177,20 +177,20 @@ def registerfunc(request):
             password2 = request.POST['password2']
         except :
             # display the error
-            return render_to_response('registerpage.html', 
+            return render_to_response('jobtracker/registerpage.html', 
                 {'error_message': "user id and pw are required"},
                                context_instance=RequestContext(request))
         else:
             # validate user (must not exist)
             checkuser = User.objects.filter(username__iexact=username)
             if checkuser.exists() or not is_user_valid(username):
-                return render_to_response('registerpage.html', 
+                return render_to_response('jobtracker/registerpage.html', 
                     {'error_message': "user already exist or invalid"},
                                context_instance=RequestContext(request))
             else:                
                  # the 2 pw must match and not be space
                 if password1 <= ' '  or password1 != password2: 
-                    return render_to_response('registerpage.html', 
+                    return render_to_response('jobtracker/registerpage.html', 
                         {'error_message': "Invalid password"},
                                context_instance=RequestContext(request))
                 else:
@@ -202,9 +202,9 @@ def registerfunc(request):
                     new_user = authenticate(username=username, password=password1)
                     if new_user is not None:
                         login(request, new_user)
-                        return HttpResponseRedirect('/jobtracker/login/')
+                        return HttpResponseRedirect('/login/')
                     else:
-                        return render_to_response('registerpage.html', 
+                        return render_to_response('jobtracker/registerpage.html', 
                         {'error_message': "Could not create user"},
                                context_instance=RequestContext(request))
 
