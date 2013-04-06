@@ -9,14 +9,15 @@ from jobtracker.models import Job, JobForm
 
 @login_required
 def create(request):
-    JobForm = modelform_factory(Job)#, exclude=('user',))
+    #u = User
+    JobForm = modelform_factory(Job, exclude=('user',))
     if request.method == 'POST':
         form = JobForm(request.POST)
         if form.is_valid():
-            form.save()
-	    #new_form = form.save(commit=False)
-            #new_form.user = User.pk
-            #new_form.save()
+            #form.save()
+	    new_form = form.save(commit=False)
+            new_form.user = request.user
+            new_form.save()
             return HttpResponseRedirect('/job')
     else:
         form = JobForm()
