@@ -1,5 +1,5 @@
 from django.forms.models import modelform_factory
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -41,3 +41,29 @@ def edit(request, job_id):
     return render_to_response("jobtracker/job_create.html",
         {"form": f},
         context_instance=RequestContext(request))
+
+@login_required
+def list(request):
+
+    sort_state = { 
+                  'applied_on': '', 
+                  'job_title': '', 
+                  'company': '', 
+                  'city': '', 
+                  'state': '', 
+                  'applied_on': '', 
+                 }
+    # sort jobs
+    if 'sort' in request.GET:
+        sort_param = request.GET['sort']
+        if 'order' in request.GET and request.GET['order'] == 'dsc':
+            sort_param = '-' + sort_param
+        else:
+           sort_state[sort_param] = '=dsc'
+        jobs = Job.objects.filter(user=request.user.pk).order_by(sort_param)
+    else:
+        jobs = Job.objects.filter(user=request.user.pk)
+
+    return render_to_response('jobtracker/job_list.html', 
+                              {'jobs': jobs, 'sort_order': sort_state}, 
+                              context_instance=RequestContext(request))

@@ -2,26 +2,28 @@
     {% block body %}
         <h1>Jobs You're Tracking</h1>
         <h2><a href="/job/create">Add a new job!</a></h2>
-        <table class="jobs">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Company</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Applied</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for job in jobs %}
-                <tr>
-                    <td><a href="/job/{{job.id}}">{{ job.job_title }}</a></td>
-                    <td><a href="/job/{{job.id}}">{{ job.company }}</a></td>
-                    <td><a href="/job/{{job.id}}">{{ job.city }}</a></td>
-                    <td><a href="/job/{{job.id}}">{{ job.state }}</a></td>
-                    <td><a href="/job/{{job.id}}">{{ job.applied_on }}</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% if jobs.count > 0 %}
+            <table class="jobs">
+                <thead>
+                    <tr>
+                        <th><a href="/job/?sort=job_title&order{{sort_order.job_title}}">Title</a></th>
+                        <th><a href="/job/?sort=company&order{{sort_order.company}}">Company</a></th>
+                        <th><a href="/job/?sort=city&order{{sort_order.city}}">City</a></th>
+                        <th><a href="/job/?sort=state&order{{sort_order.state}}">State</a></th>
+                        <th><a href="/job/?sort=applied_on&order{{sort_order.applied_on}}">Applied</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in jobs %}
+                    <tr>
+                        <td><a href="/job/{{job.id}}">{{ job.job_title }}</a></td>
+                        <td><a href="/job/{{job.id}}">{{ job.company }}</a></td>
+                        <td><a href="/job/{{job.id}}">{{ job.city }}</a></td>
+                        <td><a href="/job/{{job.id}}">{{ job.state }}</a></td>
+                        <td><a href="/job/{{job.id}}">{{ job.applied_on }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
     {% endblock %}
