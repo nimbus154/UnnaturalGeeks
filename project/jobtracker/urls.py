@@ -27,6 +27,9 @@ urlpatterns = patterns('jobtracker',
     url(r'^user$', 'user_views.register'),
     url(r'^session$', 'user_views.createSession'),
     url(r'^$', TemplateView.as_view(template_name='jobtracker/marketing.html')),
+    url(r'^jobtracker/login/$', 'jobsapp.views.loginfunc'),
+    url(r'^jobtracker/logout/$', 'jobsapp.views.logoutfunc'),
+    url(r'^jobtracker/register/$', 'jobsapp.views.registerfunc'),
 )
 
 (r'^articles/(\d{4})/$', 'news.views.year_archive'),
