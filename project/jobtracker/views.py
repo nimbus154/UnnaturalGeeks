@@ -154,8 +154,9 @@ def loginfunc(request):
 
 
 def logoutfunc(request):
-    logout(request)
-    return HttpResponseRedirect('/login/')
+    if request.method == 'POST':
+        logout(request)
+        return HttpResponseRedirect('/login/')
 
 
 def registerfunc(request):
