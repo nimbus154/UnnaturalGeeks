@@ -1,6 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from jobtracker.models import Job, CorrespondenceForm, ContactForm
 from django.views.generic import DetailView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 class JobDetailView(DetailView):
     model = Job
@@ -11,6 +13,10 @@ class JobDetailView(DetailView):
         context['correspondence_form'] = CorrespondenceForm()
         context['contact_form'] = ContactForm()
         return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProtectedView, self).dispatch(*args, **kwargs)
 
 
 def index(request):
@@ -35,7 +41,6 @@ from django.core.files import File
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth import logout
