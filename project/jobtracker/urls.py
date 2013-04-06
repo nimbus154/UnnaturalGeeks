@@ -11,6 +11,8 @@ urlpatterns = patterns('jobtracker',
     url(r'^job$', ListView.as_view(
         model=Job,
         context_object_name='jobs')),
+    url(r'^job/create$', 'job_views.create'),
+    url(r'^job/edit/(?P<job_id>\d+)$', 'job_views.edit'),
     url(r'^job/(?P<pk>\d+)$', JobDetailView.as_view()),
     url(r'^job/(?P<job_id>\d+)/contact$', 'contact_views.create'),
     url(r'^job/(?P<job_id>\d+)/contact/(?P<contact_id>\d+)$', 
@@ -26,3 +28,5 @@ urlpatterns = patterns('jobtracker',
     url(r'^session$', 'user_views.createSession'),
     url(r'^$', TemplateView.as_view(template_name='jobtracker/marketing.html')),
 )
+
+(r'^articles/(\d{4})/$', 'news.views.year_archive'),

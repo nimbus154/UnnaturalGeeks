@@ -1,0 +1,16 @@
+{% extends 'jobtracker/base.html' %}
+    {% block body %}
+        <h1>
+            {% if message %}
+                {{ message }}
+            {% endif %}
+        </h1>
+        <form method="post" action="">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit Job" />
+        </form>
+    {% endblock %}
+
+
+
+

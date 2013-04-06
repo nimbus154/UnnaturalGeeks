@@ -1,6 +1,15 @@
 {% extends 'jobtracker/base.html' %}
     {% block body %}
-        <h1>Job #{{ job.id}}</h1>
+        <h1><a href={{ job.post_url }}>
+            {{ job.company }}: {{ job.job_title }} ({{ job.city }}, {{ job.state }})
+        </a></h1>
+        <section class="job_detail">
+            {% block content %}
+                <h3>Last Applied: {{ job.applied_on }}</h3>
+                <p>Notes: <textarea rows="4" cols="50">{{job.notes}}</textarea></p>
+                <p><a href="/job/edit/{{ job.id }}">Edit job info</a></p>
+            {% endblock %}
+        </section>
         <section class="contacts">
             {% include "jobtracker/contact_list.html" %}
         </section>
@@ -8,3 +17,4 @@
             {% include "jobtracker/correspondence_list.html" %}
         </section>
     {% endblock %}
+

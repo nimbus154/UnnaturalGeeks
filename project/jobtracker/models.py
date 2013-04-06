@@ -22,6 +22,10 @@ class Job(models.Model):
                                       self.city, 
                                       self.state)
 
+class JobForm(ModelForm):
+    class Meta:
+        model   = Job
+        #fields = ('contact', 'date', 'message')
 
 class Document(models.Model):
     doc_key     = models.AutoField(primary_key=True)
