@@ -6,7 +6,6 @@ class Job(models.Model):
     job_title   = models.CharField(max_length=30)
     company     = models.CharField(max_length=30)
     post_url    = models.URLField() # default length 200. Long enough?
-    posting     = models.TextField(blank=True)
     applied_on  = models.DateField(verbose_name='date application sent',
                                   blank=True)
     city        = models.CharField(help_text='city where job is located', 
