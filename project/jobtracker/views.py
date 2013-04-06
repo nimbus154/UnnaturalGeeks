@@ -16,7 +16,7 @@ class JobDetailView(DetailView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(ProtectedView, self).dispatch(*args, **kwargs)
+        return super(JobDetailView, self).dispatch(*args, **kwargs)
 
 
 def index(request):
