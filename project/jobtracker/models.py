@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User # Django's user model
 
 class Job(models.Model):
-    job_title   = models.CharField(max_length=30)
+    job_title   = models.CharField(max_length=75)
     company     = models.CharField(max_length=30)
     post_url    = models.URLField() # default length 200. Long enough?
     applied_on  = models.DateField(verbose_name='date application sent',
