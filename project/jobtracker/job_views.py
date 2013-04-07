@@ -42,8 +42,15 @@ def edit(request, job_id):
         f = JobForm(instance=j)
         message = "Edit your job!"
     return render_to_response("jobtracker/job_create.html",
-        {"form": f},
+        {"form": f, "message": message},
         context_instance=RequestContext(request))
+
+@login_required
+def delete(request, job_id):
+    j = get_object_or_404(Job, pk=job_id)
+
+    j.delete()
+    return HttpResponseRedirect('/job')
 
 @login_required
 def list(request):
@@ -70,3 +77,5 @@ def list(request):
     return render_to_response('jobtracker/job_list.html', 
                               {'jobs': jobs, 'sort_order': sort_state}, 
                               context_instance=RequestContext(request))
+
+
