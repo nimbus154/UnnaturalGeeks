@@ -129,7 +129,7 @@ def loginfunc(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect('/document/')
+            return HttpResponseRedirect('/job/')
         else:
             # Return an 'invalid login' error message.
             return render_to_response('jobtracker/loginpage.html', {
