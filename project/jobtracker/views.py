@@ -1,23 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from jobtracker.models import Job, CorrespondenceForm, ContactForm
-from django.views.generic import DetailView
+from jobtracker.models import Job
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
-class JobDetailView(DetailView):
-    model = Job
-    context_object_name = 'job'
-
-    def get_context_data(self, **kwargs):
-        context = super(JobDetailView, self).get_context_data(**kwargs)
-        context['correspondence_form'] = CorrespondenceForm()
-        context['contact_form'] = ContactForm()
-        return context
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(JobDetailView, self).dispatch(*args, **kwargs)
-
 
 def index(request):
     return HttpResponse('index')

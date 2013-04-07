@@ -38,7 +38,7 @@ class Document(models.Model):
 
     def __unicode__(self):
         return self.doc_descr
-    '''
+
 class Document(models.Model):
     ul_date     = models.DateTimeField('date uploaded')
     the_doc     = models.FileField(upload_to='docs')
@@ -55,7 +55,6 @@ class Document(models.Model):
 
     def __unicode__(self):
         return '%s: %s' % (type, descr)
-    '''
 
 class Contact(models.Model):
     name        = models.CharField(max_length=80)
@@ -73,7 +72,6 @@ class ContactForm(ModelForm):
     class Meta:
         model = Contact
         fields = ('name', 'email', 'phone', 'notes') 
-
 
 class Correspondence(models.Model):
     date        = models.DateTimeField()

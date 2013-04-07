@@ -1,0 +1,10 @@
+<p><a href="/job/{{ contact.job_id}}/contact/{{ contact.id }}">{{ contact.name }}</a></p>
+<p><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+<p>{{ contact.phone }}</p>
+<p>{{ contact.notes  }}</p>
+<form method="post" action="/job/{{ contact.job_id }}/contact/{{ contact.id }}" > 
+    {% csrf_token %}
+    <button title="Delete" name="delete">Delete <i class="icon-remove"></i></button>
+    <input type="hidden" name="_method" value="delete" />
+</form>
+<a href="/job/{{ contact.job_id }}/contact/{{ contact.id }}?edit" title="Edit">Edit <i class="icon-pencil"></i></a>

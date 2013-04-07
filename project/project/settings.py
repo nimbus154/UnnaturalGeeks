@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'less',
     'jobtracker',
+    'django_tables2',
 )
 
 # A sample logging configuration. The only tangible logging
