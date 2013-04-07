@@ -15,11 +15,17 @@ def create(request, job_id):
             return redirect('/job/%s' % job_id)
         else:
             return render(request, 
-                          'jobtracker/job_detail.html', 
-                          {
-                              'correspondence_form': form,
-                              'job': Job.objects.get(pk=job_id),
-                          })
+                        'jobtracker/correspondence_form.html',
+                        {
+                            'correspondence_form': form,
+                        })
+    else:
+        return render(request, 
+                      'jobtracker/correspondence_form.html',
+                      {
+                          'correspondence_form': CorrespondenceForm(),
+                          'job_id': job_id,
+                      })
 
 @login_required
 def single(request, job_id, correspondence_id):
