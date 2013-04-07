@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from jobtracker.models import Job, Contact, ContactForm
+from jobtracker.models import Job, Contact, ContactForm, Correspondence
 from django.shortcuts import redirect, render, get_object_or_404, render_to_response
 from django.contrib.auth.decorators import login_required
 
@@ -21,6 +21,11 @@ def create(request, job_id):
                               'job': Job.objects.get(pk=job_id),
                           })
 
+    else:
+        return render(request,
+                      'jobtracker/contact_form.html', 
+                      {'contact_form': ContactForm(), 'job_id': job_id})
+
 @login_required
 def single(request, job_id, contact_id):
     c = get_object_or_404(Contact, pk=contact_id)
@@ -37,12 +42,20 @@ def single(request, job_id, contact_id):
             if(form.is_valid()):
                 form.save()
                 return redirect('/job/%s' % job_id)
-    else:
+    elif request.method == 'GET' and 'edit' in request.GET:
         form = ContactForm(instance=c)
+        return render(request, 
+                        'jobtracker/contact_edit.html', 
+                        {
+                            'contact_form': form,
+                            'contact': c,
+                        })
+    else:
+        correspondence = Correspondence.objects.filter(contact_id=c.id)
+        return render(request, 
+                        'jobtracker/contact_detail.html', 
+                        {
+                            'contact': c,
+                            'correspondences': correspondence,
+                        })
 
-    return render(request, 
-                    'jobtracker/contact_edit.html', 
-                    {
-                        'contact_form': form,
-                        'contact': c,
-                    })

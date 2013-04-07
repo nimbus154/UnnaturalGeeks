@@ -1,0 +1,9 @@
+{% extends 'jobtracker/base.html' %}
+{% block body %}
+    <form method="post" action="/job/{{ job_id }}/contact" > 
+        {% csrf_token %}
+        {{ contact_form.as_p }}
+        <button title="Update" name="add"><i class="icon-check"></i></button>
+        <input type="hidden" name="_method" value="put" />
+    </form>
+{% endblock %}

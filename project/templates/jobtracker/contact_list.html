@@ -1,17 +1,5 @@
-{% block body %}
-<h1>Contacts</h1>
-<form class="add" method="post" action="/job/{{ job.id }}/contact" > 
-    {% csrf_token %}
-        {{ contact_form.as_p }}
-    <button title="Add" name="add"><i class="icon-plus"></i></button>
-</form>
 <ul class="contact-list">
-    {% for contact in job.contact_set.all %}
-        <li>{% include "jobtracker/contact_detail.html" %}</li>
+    {% for contact in contacts %}
+        <li>{% include "jobtracker/contact_small.html" %}</li>
     {% endfor %}
 </ul>
-{% endblock %}
-
-
-
-
