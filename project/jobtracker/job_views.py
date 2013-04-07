@@ -9,16 +9,16 @@ from jobtracker.models import Job, JobForm
 
 @login_required
 def create(request):
-    #u = User
     JobForm = modelform_factory(Job, exclude=('user',))
     if request.method == 'POST':
         form = JobForm(request.POST)
         if form.is_valid():
-            #form.save()
 	    new_form = form.save(commit=False)
             new_form.user = request.user
             new_form.save()
             return HttpResponseRedirect('/job')
+        else:
+            message = "Invalid entries... try again!"
     else:
         form = JobForm()
         message = "Add a job to track!"
@@ -35,7 +35,9 @@ def edit(request, job_id):
         f = JobForm(request.POST, instance=j)
         if f.is_valid():
             f.save()
-        return HttpResponseRedirect('/job')
+            return HttpResponseRedirect('/job')
+        else:
+            message = "Invalid entries... try again!"
     else:
         f = JobForm(instance=j)
         message = "Edit your job!"

@@ -7,12 +7,12 @@ class Job(models.Model):
     company     = models.CharField(max_length=30)
     post_url    = models.URLField() # default length 200. Long enough?
     applied_on  = models.DateField(verbose_name='date application sent',
-                                  blank=True)
+                                  blank=True, null=True)
     city        = models.CharField(help_text='city where job is located', 
                                    max_length=30)
     state       = models.CharField(help_text='state where job is located', 
                                    max_length=30)
-    notes       = models.TextField(blank=True) # lots of notes?
+    notes       = models.TextField(blank=True, null=True) # lots of notes?
     user        = models.ForeignKey(User)
 
     def __unicode__(self):
@@ -24,7 +24,7 @@ class Job(models.Model):
 class JobForm(ModelForm):
     class Meta:
         model   = Job
-        #fields = ('contact', 'date', 'message')
+        exclude=('user',)
 
 class Document(models.Model):
     doc_key     = models.AutoField(primary_key=True)
