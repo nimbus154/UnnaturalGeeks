@@ -39,23 +39,6 @@ class Document(models.Model):
     def __unicode__(self):
         return self.doc_descr
 
-class Document(models.Model):
-    ul_date     = models.DateTimeField('date uploaded')
-    the_doc     = models.FileField(upload_to='docs')
-    descr       = models.CharField(max_length=255)
-    DOC_TYPES_CHOICES = (
-        ('RS', 'Resume'),
-        ('CL', 'Cover Letter'),
-        ('FM', 'Form'),
-    )
-    user_name   = models.ForeignKey(User)
-    type        = models.CharField(max_length=2, choices=DOC_TYPES_CHOICES)
-    mime        = models.CharField(max_length=255)
-    job_id      = models.ForeignKey(Job)        
-
-    def __unicode__(self):
-        return '%s: %s' % (type, descr)
-
 class Contact(models.Model):
     name        = models.CharField(max_length=80)
     email       = models.EmailField(blank=True)
