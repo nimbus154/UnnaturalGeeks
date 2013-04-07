@@ -11,6 +11,7 @@ urlpatterns = patterns('jobtracker',
     url(r'^job/$', 'job_views.list'),
     url(r'^job/create$', 'job_views.create'),
     url(r'^job/edit/(?P<job_id>\d+)$', 'job_views.edit'),
+    url(r'^job/delete/(?P<job_id>\d+)$', 'job_views.delete'),
     url(r'^job/(?P<pk>\d+)$', login_required(DetailView.as_view(
         model=Job,
         context_object_name='job'))),
