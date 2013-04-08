@@ -1,4 +1,3 @@
-from django.contrib.auth.forms import AuthenticationForm
 from jobtracker.models import RegistrationForm
 from django.template import RequestContext
 
