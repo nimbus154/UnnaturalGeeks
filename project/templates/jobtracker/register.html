@@ -2,12 +2,10 @@
 {% block body %}
 <h1>JobTracker Account Registration</h1>
 <form action="/register/" method="post">
-      {% csrf_token %} 
+    {% csrf_token %} 
     {% for field in form %}
-    <div class="fieldWrapper">
         {{ field.label_tag }}{{ field }}
         {{ field.errors }}
-    </div>
     {% endfor %}
       <button value="submit">Register!</button>
 </form>
