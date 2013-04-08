@@ -5,6 +5,10 @@
         </a></h1>
         <TABLE BORDER="0">
         <TR>
+        <form action="/job/listdocs/{{ job.id }}" > 
+            {% csrf_token %}
+            <input type="submit" value="Job Documents">
+        </form>
         <form action="/job/edit/{{ job.id }}" > 
             {% csrf_token %}
             <input type="submit" value="Edit Job">

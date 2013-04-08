@@ -1,0 +1,88 @@
+{% extends 'jobtracker/base.html' %}
+{% block body %}
+<h1>Documents currently associated with this job:</h1>
+        
+    
+    <div id="current-docs" >
+
+{% if job_docs %}
+    <table border="">
+        <tr>
+            <th>Remove</th>
+            <th>File Name</th>
+            <th>Doc type</th>
+            <th>Description</th>
+            <th>Upload Date</th>
+        </tr>
+    {% for doc in job_docs %}
+        <tr>
+            <td>
+                <form action="/job/listdocs/{{ job.id }}/rem" method="post"> <div style='display:none'></div>
+                      {% csrf_token %}
+                      <button name="doc_id" type="submit" value="{{ doc.doc_key }}">Remove</button>
+                </form>
+            </td>
+            <td>
+                <a href="/document/{{ doc.doc_key }}/">{{ doc.the_doc.name }}</a>
+            </td>
+            <td>
+                {{ doc.doc_type}} 
+            </td>
+            <td>
+                {{ doc.doc_descr }}
+            </td>
+            <td>
+                {{doc.doc_ul_date}} 
+            </td>
+        </tr>
+
+    {% endfor %}
+    </table> 
+{% else %}
+    <p>No documents available.</p>
+{% endif %}
+
+    </div>    
+
+<h1>Available documents:</h1>
+    <div id="available-docs" >
+
+{% if other_docs %}
+    <table border="">
+        <tr>
+            <th>Add</th>
+            <th>File Name</th>
+            <th>Doc type</th>
+            <th>Description</th>
+            <th>Upload Date</th>
+        </tr>
+    {% for doc in other_docs %}
+        <tr>
+            <td>
+                <form action="/job/listdocs/{{ job.id }}/add" method="post"> <div style='display:none'></div>
+                      {% csrf_token %} 
+                      <button name="doc_id" type="submit" value="{{ doc.doc_key }}">Add to Job</button>
+                </form>
+            </td>
+            <td>
+                <a href="/document/{{ doc.doc_key }}/">{{ doc.the_doc.name }}</a>
+            </td>
+            <td>
+                {{ doc.doc_type}} 
+            </td>
+            <td>
+                {{ doc.doc_descr }}
+            </td>
+            <td>
+                {{doc.doc_ul_date}} 
+            </td>
+        </tr>
+
+    {% endfor %}
+    </table> 
+{% else %}
+    <p>No documents available.</p>
+{% endif %}
+
+    </div>    
+{% endblock %}

@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from jobtracker.models import Job, JobForm
+from jobtracker.models import Job, JobForm, Document
 
 @login_required
 def create(request):
@@ -77,6 +77,25 @@ def list(request):
     return render_to_response('jobtracker/job_list.html', 
                               {'jobs': jobs, 'sort_order': sort_state}, 
                               context_instance=RequestContext(request))
+
+@login_required
+def listdocs(request, job_id, func="none"):
+    job = get_object_or_404(Job, pk=job_id)
+
+    if func != "none":
+        doc = Document.objects.get(pk=request.POST['doc_id'])
+        if func == "add":
+            job.document_set.add(doc)
+        elif func == "rem":
+            job.document_set.remove(doc)
+
+    # retrieve and display all documents
+    user_docs = Document.objects.filter(user_name=request.user).order_by('doc_ul_date')
+    job_docs = user_docs.filter(user_name=request.user, job_ids=job_id).order_by('doc_ul_date')
+    other_docs = user_docs.exclude(user_name=request.user, job_ids=job_id).order_by('doc_ul_date')
+    return render_to_response('jobtracker/job_docs.html', {'job': job, 'job_docs': job_docs, 'other_docs': other_docs,
+                                                  'username': request.user.username},
+                             context_instance=RequestContext(request))
 
 
 
