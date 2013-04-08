@@ -13,18 +13,11 @@ def create(request, job_id):
             contact.job_id = job_id
             contact.save()
             return redirect('/job/%s' % job_id)
-        else:
-            return render(request, 
-                          'jobtracker/job_detail.html', 
-                          {
-                              'contact_form': form,
-                              'job': Job.objects.get(pk=job_id),
-                          })
-
     else:
-        return render(request,
-                      'jobtracker/contact_form.html', 
-                      {'contact_form': ContactForm(), 'job_id': job_id})
+        form = ContactForm()
+    return render(request,
+                    'jobtracker/contact_form.html', 
+                    {'form': form, 'job_id': job_id})
 
 @login_required
 def single(request, job_id, contact_id):
