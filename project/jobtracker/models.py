@@ -1,6 +1,9 @@
+from django import forms
 from django.forms import ModelForm
 from django.db import models
 from django.contrib.auth.models import User # Django's user model
+from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 
 class Job(models.Model):
     job_title   = models.CharField(max_length=75)
@@ -69,3 +72,15 @@ class CorrespondenceForm(ModelForm):
     class Meta:
         model   = Correspondence
         fields = ('contact', 'date', 'message')
+
+# crappy hack inspired by 
+# http://stackoverflow.com/questions/2278855/making-email-field-unique-with-django-user-admin
+def validate_unique_email(email):
+    if User.objects.filter(email=email).exists():
+        raise ValidationError('There is already an account for this email address')
+
+class RegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True, validators=[validate_unique_email])
+    class Meta:
+        model = User
+        fields = { 'username', 'email' }

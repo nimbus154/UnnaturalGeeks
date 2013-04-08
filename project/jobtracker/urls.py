@@ -2,10 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import DetailView, TemplateView
 from django.contrib.auth.decorators import login_required
 from jobtracker.models import Job
-import jobtracker.contact_views
-import jobtracker.correspondence_views
-import jobtracker.document_views
-import jobtracker.user_views
+from jobtracker import contact_views, correspondence_views, document_views, user_views, auth_views
 
 urlpatterns = patterns('jobtracker',
     url(r'^job/$', 'job_views.list'),
@@ -19,13 +16,13 @@ urlpatterns = patterns('jobtracker',
     url(r'^job/(?P<job_id>\d+)/correspondence$', 'correspondence_views.create'),
     url(r'^job/(?P<job_id>\d+)/correspondence/(?P<correspondence_id>\d+)/$',
         'correspondence_views.single'),
-    url(r'^document/$', 'views.listdocs'),
-    url(r'^document/(?P<doc_id>\d+)/$', 'views.getdoc'),
+    url(r'^document/$', 'document_views.listdocs'),
+    url(r'^document/(?P<doc_id>\d+)/$', 'document_views.getdoc'),
     url(r'^document/del/', 'views.deldoc'),
     url(r'^$', TemplateView.as_view(template_name='jobtracker/marketing.html')),
-    url(r'^login/$', 'views.loginfunc'),
-    url(r'^logout/$', 'views.logoutfunc'),
-    url(r'^register/$', 'views.registerfunc'),
+    url(r'^login/$', 'auth_views.loginfunc'),
+    url(r'^logout/$', 'auth_views.logoutfunc'),
+    url(r'^register/$', 'auth_views.registerfunc'),
 )
 
 (r'^articles/(\d{4})/$', 'news.views.year_archive'),
