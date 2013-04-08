@@ -2,8 +2,11 @@
 {% block body %}
     <h1>Add correspondence</h1>
     <form method="post" action="/job/{{ job_id }}/correspondence" > 
-        {{ correspondence_form.as_p }}
         {% csrf_token %}
+        {% for field in form %}
+            {{ field.label_tag }}{{ field }}
+            {{ field.errors }}
+        {% endfor %}
         <button title="Add" name="add">Add<i class="icon-check"></i></button>
     </form>
 {% endblock %}

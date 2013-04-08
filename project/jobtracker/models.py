@@ -67,6 +67,14 @@ class Correspondence(models.Model):
         return self.message
 
 class CorrespondenceForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        # thanks to
+        # http://stackoverflow.com/questions/13610668/restrict-django-form-foreignkey-dropdown-by-user
+        # for explaining how to filter foreign key dropdowns
+        self.job = kwargs.pop('job', None)
+        super(CorrespondenceForm, self).__init__(*args, **kwargs)
+        self.fields['contact'].queryset = self.job.contact_set.all()
+
     class Meta:
         model   = Correspondence
         fields = ('contact', 'date', 'message')

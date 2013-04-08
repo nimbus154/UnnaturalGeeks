@@ -1,31 +1,27 @@
 from django.http import HttpResponse
-from jobtracker.models import Job, CorrespondenceForm, Correspondence
+from jobtracker.models import Job, CorrespondenceForm, Correspondence, Contact
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 @login_required
 def create(request, job_id):
 # Manage correspondence creation
+    job = get_object_or_404(Job, pk=job_id)
     if(request.method == 'POST'):
-        form = CorrespondenceForm(request.POST)
+        form = CorrespondenceForm(request.POST, job=job)
         if(form.is_valid()):
             correspondence = form.save(commit=False)
             correspondence.job_id = job_id
             correspondence.save()
             return redirect('/job/%s' % job_id)
-        else:
-            return render(request, 
-                        'jobtracker/correspondence_form.html',
-                        {
-                            'correspondence_form': form,
-                        })
     else:
-        return render(request, 
-                      'jobtracker/correspondence_form.html',
-                      {
-                          'correspondence_form': CorrespondenceForm(),
-                          'job_id': job_id,
-                      })
+        form = CorrespondenceForm(job=job)
+    return render(request, 
+                    'jobtracker/correspondence_form.html',
+                    {
+                        'form': form,
+                        'job_id': job_id,
+                    })
 
 @login_required
 def single(request, job_id, correspondence_id):
