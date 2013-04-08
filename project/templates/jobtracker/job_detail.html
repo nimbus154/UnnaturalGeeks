@@ -18,7 +18,10 @@
         <section class="job_detail">
             {% block content %}
                 <h3>Last Applied: {{ job.applied_on }}</h3>
-                <p>Notes: <textarea rows="4" cols="50">{{job.notes}}</textarea></p>
+                {% if job.notes %}
+                    <h4>Notes</h4>
+                    <p>{{ job.notes }}</p>
+                {% endif %}
             {% endblock %}
         </section>
         <section class="contacts">
