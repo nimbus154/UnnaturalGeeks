@@ -1,5 +1,5 @@
 <div class="options">
-    <form class="delete" method="post" action="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}" > 
+    <form class="delete" method="post" action="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}/" > 
         {% csrf_token %}
         <button title="Delete" name="delete">Delete <i class="icon-remove"></i></button>
         <input type="hidden" name="_method" value="delete" />

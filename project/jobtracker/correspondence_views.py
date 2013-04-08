@@ -26,6 +26,7 @@ def create(request, job_id):
 @login_required
 def single(request, job_id, correspondence_id):
     c = get_object_or_404(Correspondence, pk=correspondence_id)
+    job = get_object_or_404(Job, pk=job_id)
 
     if(request.method == 'POST' and '_method' in request.POST): 
         requestMethod = request.POST.get('_method', '')
@@ -35,16 +36,16 @@ def single(request, job_id, correspondence_id):
             return redirect('/job/%s' % job_id)
 
         elif(requestMethod == 'put'):
-            form = CorrespondenceForm(request.POST, instance=c)
+            form = CorrespondenceForm(request.POST, instance=c, job=job)
             if(form.is_valid()):
                 form.save()
                 return redirect('/job/%s' % job_id)
     else:
-        form = CorrespondenceForm(instance=c)
+        form = CorrespondenceForm(instance=c, job=job)
 
     return render(request, 
                     'jobtracker/correspondence_edit.html', 
                     {
-                        'correspondence_form': form,
+                        'form': form,
                         'correspondence': c,
                     })

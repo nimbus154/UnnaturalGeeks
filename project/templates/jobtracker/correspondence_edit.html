@@ -1,9 +1,13 @@
 {% extends 'jobtracker/base.html' %}
 {% block body %}
     <h1>Edit correspondence {{ correspondence.id }}</h1>
-    <form method="post" action="/job/{{ correspondence.job.id }}/correspondence/{{ correspondence.id }}" > 
-        {{ correspondence_form.as_p }}
+    <form method="post" action="/job/{{ correspondence.job.id }}/correspondence/{{ correspondence.id }}/" > 
         {% csrf_token %}
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.label_tag }}{{ field }}
+            {{ field.errors }}
+        {% endfor %}
         <button title="Update" name="update"><i class="icon-check"></i></button>
         <input type="hidden" name="_method" value="put" />
     </form>
