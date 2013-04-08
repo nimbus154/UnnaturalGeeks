@@ -1,7 +1,7 @@
 from django.forms.models import modelform_factory
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -78,4 +78,31 @@ def list(request):
                               {'jobs': jobs, 'sort_order': sort_state}, 
                               context_instance=RequestContext(request))
 
+
+
+@login_required
+def detail(request, job_id):
+    job = get_object_or_404(Job, pk=job_id)
+    if job.user.id != request.user.pk:
+# change to error page
+        raise Http404
+
+    contact_id = 0
+    if 'contact_filter' in request.GET and request.GET['contact_filter'] != "0":
+        try:
+            contact_id = int(request.GET['contact_filter'])
+            correspondences = job.correspondence_set.filter(contact_id=contact_id)
+        except:
+            correspondences = job.correspondence_set.all()
+    else:
+        correspondences = job.correspondence_set.all()
+
+    return render_to_response('jobtracker/job_detail.html',
+                              {
+                                  'job': job,
+                                  'correspondences': correspondences,
+                                  'selected': contact_id,
+                              },
+                              context_instance=RequestContext(request))
+                                
 

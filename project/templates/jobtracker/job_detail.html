@@ -32,14 +32,20 @@
             <label for="contact_filter">Display only messages from</label>
             <form action="/job/{{ job.id }}" method="get">
                 <select name="contact_filter">
+                    <option value="0">All contacts</option>
                     {% for contact in job.contact_set.all %}
-                    <option value="{{ contact.id }}">{{ contact.name }}</option>
+                        {{ selected }}
+                        {% if contact.id == selected %}
+                        <option value="{{ contact.id }}" selected="selected">{{ contact.name }}</option>
+                        {% else %}
+                        <option value="{{ contact.id }}">{{ contact.name }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
                 <button value="filter">Apply</button>
             </form>
             <a href="/job/{{ job.id }}/correspondence"><i class="icon-plus"></i>Add correspondence</a>
-            {% include "jobtracker/correspondence_list.html" with correspondences=job.correspondence_set.all %}
+            {% include "jobtracker/correspondence_list.html" %}
         </section>
     {% endblock %}
 
