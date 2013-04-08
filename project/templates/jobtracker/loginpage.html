@@ -21,6 +21,9 @@
     <label>&nbsp;</label><input type="submit" value="Log in" />
   </div>
 </form>
+    {% if error_message %}
+        <span class="error">{{ error_message }}</span>
+    {% endif %}
 
   <div>   <a href="/register">(Register)</a> </div>
 {% endblock %}
