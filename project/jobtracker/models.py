@@ -45,10 +45,8 @@ class Document(models.Model):
 class Contact(models.Model):
     name        = models.CharField(max_length=80)
     email       = models.EmailField(blank=True)
-    phone       = models.CharField(max_length=20,# to account for foreign #s
-                                   blank=True) 
-    notes       = models.CharField(max_length=200,
-                                  blank=True)
+    phone       = models.CharField(max_length=20, blank=True) # to account for foreign #s
+    notes       = models.TextField(blank=True)
     job         = models.ForeignKey(Job)
 
     def __unicode__(self):
