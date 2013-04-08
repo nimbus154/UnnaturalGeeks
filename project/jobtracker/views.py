@@ -192,7 +192,7 @@ def registerfunc(request):
                     new_user = authenticate(username=username, password=password1)
                     if new_user is not None:
                         login(request, new_user)
-                        return HttpResponseRedirect('/login/')
+                        return HttpResponseRedirect('/job')
                     else:
                         return render_to_response('jobtracker/registerpage.html', 
                         {'error_message': "Could not create user"},
