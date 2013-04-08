@@ -2,7 +2,10 @@
 {% block body %}
     <form method="post" action="/job/{{ contact.job_id }}/contact/{{ contact.id }}" > 
         {% csrf_token %}
-        {{ contact_form.as_p }}
+        {% for field in form %}
+            {{ field.label_tag }}{{ field }}
+            {{ field.errors }}
+        {% endfor %}
         <button title="Update" name="add"><i class="icon-check"></i></button>
         <input type="hidden" name="_method" value="put" />
     </form>

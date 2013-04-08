@@ -23,32 +23,30 @@ def create(request, job_id):
 def single(request, job_id, contact_id):
     c = get_object_or_404(Contact, pk=contact_id)
 
-    if(request.method == 'POST' and '_method' in request.POST): 
+    if request.method == 'POST' and '_method' in request.POST: 
         requestMethod = request.POST.get('_method', '')
 
-        if(requestMethod == 'delete'):
+        if requestMethod == 'delete':
             c.delete()
             return redirect('/job/%s' % job_id)
 
-        elif(requestMethod == 'put'):
+        elif requestMethod == 'put':
             form = ContactForm(request.POST, instance=c)
             if(form.is_valid()):
                 form.save()
                 return redirect('/job/%s' % job_id)
+            else:
+                return render(request,
+                       'jobtracker/contact_edit.html',
+                       { 'form': form, 'contact': c, })
     elif request.method == 'GET' and 'edit' in request.GET:
         form = ContactForm(instance=c)
         return render(request, 
                         'jobtracker/contact_edit.html', 
-                        {
-                            'contact_form': form,
-                            'contact': c,
-                        })
+                        { 'form': form, 'contact': c, })
     else:
-        correspondence = Correspondence.objects.filter(contact_id=c.id)
         return render(request, 
-                        'jobtracker/contact_detail.html', 
-                        {
-                            'contact': c,
-                            'correspondences': correspondence,
-                        })
+                      'jobtracker/contact_detail.html', 
+                      { 'contact': c, 
+                       'correspondences': Correspondence.objects.filter(contact_id=c.id), })
 
