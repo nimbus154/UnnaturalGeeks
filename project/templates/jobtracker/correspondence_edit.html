@@ -3,7 +3,6 @@
     <h1>Edit correspondence {{ correspondence.id }}</h1>
     <form method="post" action="/job/{{ correspondence.job.id }}/correspondence/{{ correspondence.id }}/" > 
         {% csrf_token %}
-        {% csrf_token %}
         {% for field in form %}
             {{ field.label_tag }}{{ field }}
             {{ field.errors }}
