@@ -4,17 +4,22 @@
 
 @border: 1px solid black;
 @buttonWidth: 60px;
+@spacer: 15px;
 
+button {
+    border: none;
+    background: none;
+}
 
 .blank-list {
     list-style-type: none;
     margin-left: 0;
 }
 
-button {
-    border: none;
-    background: none;
+.error-list {
+    color: red;
 }
+
 
 .enlarge {
     & :hover {
@@ -49,8 +54,26 @@ button {
 
 .job-detail {
 
+    .not-applied {
+        .error-list;
+    }
+
     header {
         border-bottom: @border;
+        padding-bottom: @spacer; 
+
+        .options {
+            float: none;
+            .btn-group;
+
+            a {
+                .btn;
+            }
+
+            button {
+                .btn;
+            }
+        }
     } 
 
     .location {
@@ -63,9 +86,18 @@ button {
         border-bottom: @border;
     }
 
-    .correspondece-filter {
+    .correspondence-filter {
         .form-inline;
-        margin-top: 15px;
+
+        margin-top: @spacer;
+
+        label { 
+            display: inline; 
+        }
+
+        button {
+            .btn;
+        }
     }
 
 } // job-detail
@@ -96,9 +128,12 @@ button {
         float: left;
         width: 260px;
         min-height: 100px;
-        padding: 15px;
-        margin: 8px;
-        h3 { display: inline; }
+        padding: @spacer;
+        margin: @spacer / 2;
+
+        h3 { 
+            display: inline; 
+        }
     }
 
 } // contact-list
@@ -119,7 +154,7 @@ button {
         }
 
         .options {
-            margin-left: 15px;
+            margin-left: spacer;
             float: none;
             display: inline;
         }

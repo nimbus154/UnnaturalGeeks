@@ -1,14 +1,4 @@
 {% extends 'jobtracker/base.html' %}
-    {% block left_nav %}
-        <div class="options">
-            <a href="/job/listdocs/{{ job.id }}" ><i class="icon-file"></i>Job Documents</a>
-            <a href="/job/edit/{{ job.id }}" ><i class="icon-pencil"></i>Edit</a>
-            <form action="/job/delete/{{ job.id }}" method="post">
-                {% csrf_token %}
-                <button value="delete"><i class="icon-remove"></i>Delete</button>
-            </form>
-        </div>
-    {% endblock %}
     {% block body %}
     <section class="job-detail">
         <header>
@@ -20,13 +10,21 @@
                 {% if job.applied_on %}
                     <h3>Applied: {{ job.applied_on }}</h3>
                 {% else %}
-                    <h3>You haven't applied to this job</h3>
+                    <h3 class="not-applied">You haven't applied to this job</h3>
                 {% endif %}
                 {% if job.notes %}
                     <h4>Notes</h4>
                     <p>{{ job.notes }}</p>
                 {% endif %}
             {% endblock %}
+            <div class="options">
+                <a href="/job/listdocs/{{ job.id }}" ><i class="icon-file"></i>Job Documents</a>
+                <a class="updated" href="/job/edit/{{ job.id }}" ><i class="icon-pencil"></i>Edit</a>
+                <form class="delete" action="/job/delete/{{ job.id }}" method="post">
+                    {% csrf_token %}
+                    <button value="delete"><i class="icon-remove"></i>Delete</button>
+                </form>
+            </div>
         </header>
         <section class="contacts">
             <h2>Contacts</h2>
@@ -37,7 +35,7 @@
         <section class="correspondences">
             <h2>Correspondences</h2>
             <a href="/job/{{ job.id }}/correspondence"><i class="icon-plus"></i>Add correspondence</a>
-            <form class="correspondece-filter" action="/job/{{ job.id }}" method="get">
+            <form class="correspondence-filter" action="/job/{{ job.id }}" method="get">
                 <label for="contact_filter">Display only messages from</label>
                 <select name="contact_filter">
                     <option value="0">All contacts</option>
