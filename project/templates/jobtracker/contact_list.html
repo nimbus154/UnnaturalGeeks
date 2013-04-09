@@ -1,5 +1,6 @@
 <ul class="contact-list">
     {% for contact in contacts %}
-        <li>{% include "jobtracker/contact_small.html" %}</li>
+        <li class="contact">{% include "jobtracker/contact_small.html" %}</li>
     {% endfor %}
+    <br style="clear: both" />
 </ul>

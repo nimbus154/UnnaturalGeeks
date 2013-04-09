@@ -1,33 +1,33 @@
 {% extends 'jobtracker/base.html' %}
+    {% block left_nav %}
+        <div class="options">
+            <a href="/job/listdocs/{{ job.id }}" ><i class="icon-file"></i>Job Documents</a>
+            <a href="/job/edit/{{ job.id }}" ><i class="icon-pencil"></i>Edit</a>
+            <form action="/job/delete/{{ job.id }}" method="post">
+                {% csrf_token %}
+                <button value="delete"><i class="icon-remove"></i>Delete</button>
+            </form>
+        </div>
+    {% endblock %}
     {% block body %}
-        <h1><a href={{ job.post_url }}>
-            {{ job.company }}: {{ job.job_title }} ({{ job.city }}, {{ job.state }})
-        </a></h1>
-        <TABLE BORDER="0">
-        <TR>
-        <form action="/job/listdocs/{{ job.id }}" > 
-            {% csrf_token %}
-            <input type="submit" value="Job Documents">
-        </form>
-        <form action="/job/edit/{{ job.id }}" > 
-            {% csrf_token %}
-            <input type="submit" value="Edit Job">
-        </form>
-        <form action="/job/delete/{{ job.id }}" > 
-            {% csrf_token %}
-            <input type="submit" value="Delete Job">
-        </form>
-        </TR>
-        </TABLE>
-        <section class="job_detail">
+    <section class="job-detail">
+        <header>
+            <h1><a href={{ job.post_url }}>
+                {{ job.job_title }} at {{ job.company }}
+            </a></h1>
+            <span class="location">{{ job.city }}, {{ job.state }}</span>
             {% block content %}
-                <h3>Last Applied: {{ job.applied_on }}</h3>
+                {% if job.applied_on %}
+                    <h3>Applied: {{ job.applied_on }}</h3>
+                {% else %}
+                    <h3>You haven't applied to this job</h3>
+                {% endif %}
                 {% if job.notes %}
                     <h4>Notes</h4>
                     <p>{{ job.notes }}</p>
                 {% endif %}
             {% endblock %}
-        </section>
+        </header>
         <section class="contacts">
             <h2>Contacts</h2>
             <a href="/job/{{ job.id }}/contact"><i class="icon-plus"></i>Add
@@ -54,5 +54,6 @@
             <a href="/job/{{ job.id }}/correspondence"><i class="icon-plus"></i>Add correspondence</a>
             {% include "jobtracker/correspondence_list.html" %}
         </section>
+    </section>
     {% endblock %}
 

@@ -1,10 +1,18 @@
-<p><a href="/job/{{ contact.job_id}}/contact/{{ contact.id }}">{{ contact.name }}</a></p>
-<p><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
-<p>{{ contact.phone }}</p>
-<p>{{ contact.notes  }}</p>
-<form method="post" action="/job/{{ contact.job_id }}/contact/{{ contact.id }}" > 
-    {% csrf_token %}
-    <button title="Delete" name="delete">Delete <i class="icon-remove"></i></button>
-    <input type="hidden" name="_method" value="delete" />
-</form>
-<a href="/job/{{ contact.job_id }}/contact/{{ contact.id }}?edit" title="Edit">Edit <i class="icon-pencil"></i></a>
+<div class="options">
+    <a class="update" href="/job/{{ contact.job_id }}/contact/{{ contact.id }}?edit" title="Edit"><i class="icon-pencil"></i></a>
+    <form class="delete" method="post" action="/job/{{ contact.job_id }}/contact/{{ contact.id }}" > 
+        {% csrf_token %}
+        <button title="Delete" name="delete"><i class="icon-remove"></i></button>
+        <input type="hidden" name="_method" value="delete" />
+    </form>
+</div>
+<h3><a href="/job/{{ contact.job_id}}/contact/{{ contact.id }}">{{ contact.name }}</a></h3>
+<section class="details">
+    <div class="contact-info">
+        <span><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></span>
+        <span>{{ contact.phone }}</span>
+    </div>
+    {% if contact.notes %}
+    <p>{{ contact.notes  }}</p>
+    {% endif %}
+</section>

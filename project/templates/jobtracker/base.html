@@ -65,9 +65,14 @@
       </div>
     </div>
 
-    <div class="container">
-    {% block body %}{% endblock %}
-    </div> <!-- /container -->
+    <section class="main row-fluid">
+        <aside class="options span2">
+            {% block left_nav %}{% endblock %}
+        </aside>
+        <section class="container span9">
+            {% block body %}{% endblock %}
+        </section> <!-- /container -->
+    </section>
 
     <!-- Le javascript
     ================================================== -->
