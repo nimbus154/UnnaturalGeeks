@@ -38,8 +38,8 @@
             {% if user.is_authenticated %}
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="active"><a href="/job">Jobs</a></li>
-                <li><a href="/document">Documents</a></li>
+                    <li><a class="job" href="/job">Jobs</a></li>
+                    <li><a class="document" href="/document">Documents</a></li>
                 </ul>
                 <form class="navbar-form pull-right" action="/logout/" method="post">
                     {% csrf_token %}
@@ -47,14 +47,14 @@
                 </form>
             {% else %}
                 <div class="pull-right">
-                <form class="navbar-form" action="/login/" method="post">
-                    {% csrf_token %}
-                    <input class="span2" type="text" name="username" placeholder="Username">
-                    <input class="span2" type="password" name="password" placeholder="Password">
-                    <button type="submit" class="btn">Sign in</button>
-                    <a href="/register/">Register</a>
-                </form>
-            </div>
+                    <form class="navbar-form" action="/login/" method="post">
+                        {% csrf_token %}
+                        <input class="span2" type="text" name="username" placeholder="Username">
+                        <input class="span2" type="password" name="password" placeholder="Password">
+                        <button type="submit" class="btn">Sign in</button>
+                        <a href="/register/">Register</a>
+                    </form>
+                </div>
             {% endif %}
           </div><!--/.nav-collapse -->
         </div>
@@ -81,6 +81,19 @@
     <script src="/static/bootstrap/js/bootstrap-collapse.js"></script>
     <script src="/static/bootstrap/js/bootstrap-carousel.js"></script>
     <script src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
+    <script>
+        $(function() {
+            if(document.URL.match(/job/)) {
+                $('ul.nav .job').parent('li').addClass('active');
+            }
+            else if(document.URL.match(/document/)) {
+                $('ul.nav .document').parent('li').addClass('active');
+            }
+            else {
+                $('.brand').addClass('active');
+            }
+        });
+    </script>
     {% block scripts %}{% endblock %}
   </body>
 </html>

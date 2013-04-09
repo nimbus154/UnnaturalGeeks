@@ -6,22 +6,16 @@
     <div id="doc-list" >
 
 {% if all_docs %}
-    <table border="">
+    <table class="doc-list">
         <tr>
-            <th>Remove</th>
             <th>File Name</th>
             <th>Doc type</th>
             <th>Description</th>
             <th>Upload Date</th>
+            <th>Remove</th>
         </tr>
     {% for doc in all_docs %}
         <tr>
-            <td>
-                <form action="/document/del/" method="post"  id="document_delete"> <div style='display:none'></div>
-                      {% csrf_token %} 
-                      <button name="doc_id" type="submit" value="{{ doc.doc_key }}">Delete</button>
-                </form>
-            </td>
             <td>
                 <a href="/document/{{ doc.doc_key }}/">{{ doc.the_doc.name }}</a>
             </td>
@@ -33,6 +27,12 @@
             </td>
             <td>
                 {{doc.doc_ul_date}} 
+            </td>
+            <td>
+                <form action="/document/del/" method="post"  id="document_delete"> <div style='display:none'></div>
+                      {% csrf_token %} 
+                      <button name="doc_id" class="delete" type="submit" value="{{ doc.doc_key }}"><i class="icon-remove"></i></button>
+                </form>
             </td>
         </tr>
 

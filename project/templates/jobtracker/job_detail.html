@@ -28,13 +28,12 @@
         </header>
         <section class="contacts">
             <h2>Contacts</h2>
-            <a href="/job/{{ job.id }}/contact"><i class="icon-plus"></i>Add
-                a contact</a>
+            <a class="add" href="/job/{{ job.id }}/contact"><i class="icon-plus"></i>Add a contact</a>
             {% include "jobtracker/contact_list.html" with contacts=job.contact_set.all %}
         </section>
         <section class="correspondences">
             <h2>Correspondences</h2>
-            <a href="/job/{{ job.id }}/correspondence"><i class="icon-plus"></i>Add correspondence</a>
+            <a class="add" href="/job/{{ job.id }}/correspondence"><i class="icon-plus"></i>Add correspondence</a>
             <form class="correspondence-filter" action="/job/{{ job.id }}" method="get">
                 <label for="contact_filter">Display only messages from</label>
                 <select name="contact_filter">
