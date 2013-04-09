@@ -36,8 +36,9 @@
         </section>
         <section class="correspondences">
             <h2>Correspondences</h2>
-            <label for="contact_filter">Display only messages from</label>
-            <form action="/job/{{ job.id }}" method="get">
+            <a href="/job/{{ job.id }}/correspondence"><i class="icon-plus"></i>Add correspondence</a>
+            <form class="correspondece-filter" action="/job/{{ job.id }}" method="get">
+                <label for="contact_filter">Display only messages from</label>
                 <select name="contact_filter">
                     <option value="0">All contacts</option>
                     {% for contact in job.contact_set.all %}
@@ -51,7 +52,6 @@
                 </select>
                 <button value="filter">Apply</button>
             </form>
-            <a href="/job/{{ job.id }}/correspondence"><i class="icon-plus"></i>Add correspondence</a>
             {% include "jobtracker/correspondence_list.html" %}
         </section>
     </section>

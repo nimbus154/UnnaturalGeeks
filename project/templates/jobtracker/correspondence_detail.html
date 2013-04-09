@@ -1,15 +1,13 @@
+{% if correspondence.contact %}
+<h3 class="contact">{{ correspondence.contact }}</h3>
+{% endif %}
 <div class="options">
+    <a href="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}?edit" class="update" title="Edit"><i class="icon-pencil"></i></a>
     <form class="delete" method="post" action="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}/" > 
         {% csrf_token %}
-        <button title="Delete" name="delete">Delete <i class="icon-remove"></i></button>
+        <button title="Delete" name="delete"><i class="icon-remove"></i></button>
         <input type="hidden" name="_method" value="delete" />
     </form>
-    <a href="/job/{{ correspondence.job_id }}/correspondence/{{ correspondence.id }}?edit" title="Edit">Edit <i class="icon-pencil"></i></a>
 </div>
-<pre>
-{% if correspondence.contact %}
-<strong>{{ correspondence.contact }}</strong>
-{% endif %}
-<strong>{{ correspondence.date  }}</strong>
-{{ correspondence.message  }}
-</pre>
+<span class="date">{{ correspondence.date  }}</span>
+<pre>{{ correspondence.message  }}</pre>
