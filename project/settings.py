@@ -9,9 +9,9 @@ TEMPLATE_DEBUG = DEBUG
 # if you're not running Prof Avery's VM, change this path so it points to the
 # correct directory:
 # home machine
-LOCAL_PATH='/home/cpsc473/django/UnnaturalGeeks'
+#LOCAL_PATH='/home/cpsc473/django/UnnaturalGeeks'
 # heroku
-# LOCAL_PATH='/app'
+LOCAL_PATH='/app'
 
 if os.getcwd() == "/app":
     DATABASES = {'default': dj_database_url.config(default='postgres://localhost') }
