@@ -5,7 +5,9 @@
         <h1>Take control of your job search!</h1>
         <p>Applying to dozens of jobs? Not sure which resume you used or which
         recruiter to contact? JobTracker is the solution you've been waiting for!</p>
+        {% if not user.is_authenticated %}
         <p><a class="btn btn-primary btn-large" href="/register">Register now!</a></p>
+        {% endif %}
       </div>
 
       <!-- Example row of columns -->
