@@ -1,4 +1,31 @@
 # Django settings for project project.
+import dj_database_url
+import os
+import logging
+
+
+# if you're not running Prof Avery's VM, change this path so it points to the
+# correct directory:
+# home machine
+LOCAL_PATH='/home/cpsc473/django/UnnaturalGeeks'
+# heroku
+# LOCAL_PATH='/app'
+
+if os.getcwd() == "/app":
+    logging.debug("/app is true")
+    DATABASES = {'default': dj_database_url.config(default='postgres://localhost') }
+else:
+    logging.debug("local machine")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': '%s/project/data.db' % LOCAL_PATH, # Or path to database file if using sqlite3.
+            'USER': '',                      # Not used with sqlite3.
+            'PASSWORD': '',                  # Not used with sqlite3.
+            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        }
+    }
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -9,22 +36,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-# if you're not running Prof Avery's VM, change this path so it points to the
-# correct directory:
-LOCAL_PATH='/home/cpsc473/django/UnnaturalGeeks'
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '%s/project/data.db' % LOCAL_PATH, # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
-
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en//ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -33,7 +44,7 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Los_Angeles'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -168,10 +179,3 @@ LOGGING = {
         },
     }
 }
-
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

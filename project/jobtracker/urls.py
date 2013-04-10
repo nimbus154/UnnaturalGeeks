@@ -1,8 +1,10 @@
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls import patterns, include, url
 from django.views.generic import DetailView, TemplateView
 from django.contrib.auth.decorators import login_required
 from jobtracker.models import Job
 from jobtracker import contact_views, correspondence_views, document_views, user_views, auth_views
+
 
 urlpatterns = patterns('jobtracker',
     url(r'^job/$', 'job_views.list'),
@@ -26,5 +28,4 @@ urlpatterns = patterns('jobtracker',
     url(r'^logout/$', 'auth_views.logoutfunc'),
     url(r'^register/$', 'auth_views.registerfunc'),
 )
-
-(r'^articles/(\d{4})/$', 'news.views.year_archive'),
+urlpatterns += staticfiles_urlpatterns()
