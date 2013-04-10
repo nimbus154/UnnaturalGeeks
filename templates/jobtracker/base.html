@@ -48,6 +48,7 @@
                     {% csrf_token %}
                     <button type="submit" class="btn">Log out</button>
                 </form>
+                <span class="username">{{ user.username }}</span>
             {% else %}
                 <div class="pull-right">
                     <form class="navbar-form" action="/login/" method="post">

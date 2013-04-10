@@ -5128,6 +5128,14 @@ a.active {
 .errorlist {
   color: red;
 }
+.username {
+  color: white !important;
+  margin-right: 15px;
+  margin-bottom: 0;
+  line-height: 40px;
+  color: #777777;
+  float: right;
+}
 .add,
 .delete {
   border: none;
