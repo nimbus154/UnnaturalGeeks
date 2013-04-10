@@ -11,13 +11,13 @@ MANAGERS = ADMINS
 
 # if you're not running Prof Avery's VM, change this path so it points to the
 # correct directory:
-LOCAL_PATH='/home/cpsc473/django'
+LOCAL_PATH='/home/cpsc473/django/UnnaturalGeeks'
 
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '%s/UnnaturalGeeks/project/data.db' % LOCAL_PATH, # Or path to database file if using sqlite3.
+        'NAME': '%s/project/data.db' % LOCAL_PATH, # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -57,7 +57,7 @@ LOGIN_URL= '/login/'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '%s/UnnaturalGeeks/project/jobtracker/uploads/' % LOCAL_PATH
+MEDIA_ROOT = '%s/project/jobtracker/uploads/' % LOCAL_PATH
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -76,7 +76,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '%s/UnnaturalGeeks/project/jobtracker/static' % LOCAL_PATH,
+    '%s/project/jobtracker/static' % LOCAL_PATH,
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -91,7 +91,7 @@ STATICFILES_FINDERS = (
     'less.finders.LessFinder',
 )
 
-LESS_ROOT='%s/UnnaturalGeeks/project/jobtracker/static/styles' % LOCAL_PATH
+LESS_ROOT='%s/project/jobtracker/static/styles' % LOCAL_PATH
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'a3cv9k84biath!-(azh7m0pjl&amp;@k^fi0c-n-q#bdmh$bm0+(1+'
@@ -119,7 +119,7 @@ ROOT_URLCONF = 'project.urls'
 WSGI_APPLICATION = 'project.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '%s/UnnaturalGeeks/project/templates' % LOCAL_PATH
+    '%s/project/templates' % LOCAL_PATH
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -169,12 +169,9 @@ LOGGING = {
     }
 }
 
-'''
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-'''
