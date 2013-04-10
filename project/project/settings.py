@@ -3,6 +3,8 @@ import dj_database_url
 import os
 import logging
 
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 # if you're not running Prof Avery's VM, change this path so it points to the
 # correct directory:
@@ -12,10 +14,8 @@ LOCAL_PATH='/home/cpsc473/django/UnnaturalGeeks'
 # LOCAL_PATH='/app'
 
 if os.getcwd() == "/app":
-    logging.debug("/app is true")
     DATABASES = {'default': dj_database_url.config(default='postgres://localhost') }
 else:
-    logging.debug("local machine")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -27,8 +27,6 @@ else:
         }
     }
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
