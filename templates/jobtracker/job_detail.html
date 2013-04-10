@@ -20,7 +20,7 @@
             <div class="options">
                 <a href="/job/listdocs/{{ job.id }}" ><i class="icon-file"></i>Job Documents</a>
                 <a class="updated" href="/job/edit/{{ job.id }}" ><i class="icon-pencil"></i>Edit</a>
-                <form class="delete" action="/job/delete/{{ job.id }}" method="post">
+                <form action="/job/delete/{{ job.id }}" method="post">
                     {% csrf_token %}
                     <button value="delete"><i class="icon-remove"></i>Delete</button>
                 </form>

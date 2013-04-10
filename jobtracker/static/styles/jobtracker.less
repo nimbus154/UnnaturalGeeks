@@ -6,11 +6,6 @@
 @buttonWidth: 60px;
 @spacer: 15px;
 
-button {
-    border: none;
-    background: none;
-}
-
 .blank-list {
     list-style-type: none;
     margin-left: 0;
@@ -26,6 +21,8 @@ a.active {
 
 .add, .delete {
     .enlarge;
+    border: none;
+    background: none;
 }
 
 .enlarge {
@@ -42,8 +39,10 @@ a.active {
 .options {
     float: right;
 
-    .delete {
+    form {
         display: inline;
+    }
+    .delete {
 
         button {
             border: none;

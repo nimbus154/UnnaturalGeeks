@@ -5118,10 +5118,6 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
-button {
-  border: none;
-  background: none;
-}
 .blank-list {
   list-style-type: none;
   margin-left: 0;
@@ -5131,6 +5127,11 @@ a.active {
 }
 .errorlist {
   color: red;
+}
+.add,
+.delete {
+  border: none;
+  background: none;
 }
 .add :hover,
 .delete :hover {
@@ -5150,7 +5151,7 @@ a.active {
 .options {
   float: right;
 }
-.options .delete {
+.options form {
   display: inline;
 }
 .options .delete button {

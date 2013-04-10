@@ -1,7 +1,7 @@
 {% extends 'jobtracker/base.html' %}
 {% block body %}
     <div class="options">
-        <form method="post" action="/job/{{ contact.job_id }}/contact/{{ contact.id }}" > 
+        <form class="delete" method="post" action="/job/{{ contact.job_id }}/contact/{{ contact.id }}" > 
             {% csrf_token %}
             <button title="Delete" name="delete">Delete this contact <i class="icon-remove"></i></button>
             <input type="hidden" name="_method" value="delete" />

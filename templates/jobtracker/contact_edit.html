@@ -6,7 +6,8 @@
             {{ field.label_tag }}{{ field }}
             {{ field.errors }}
         {% endfor %}
-        <button title="Update" name="add"><i class="icon-check"></i></button>
+        <br />
+        <button title="Update" name="update"><i class="icon-check"></i> Update</button>
         <input type="hidden" name="_method" value="put" />
     </form>
 {% endblock %}
